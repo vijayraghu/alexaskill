@@ -2,26 +2,26 @@
   "name": "details",
   "description": "customer details",
   "key": "0d1e4dba73af6a9c4a117e9ad937a517",
-  "Paul": {
-    "cust_id": "5a0db59a9a247e701c7765ce",
-    "Savings": "5a0dba3c9a247e701c7765d1",
-    "Credit Card": "5a0db9e59a247e701c7765d0",
-    "Checking": "5a0dbad39a247e701c7765d3"
+  "Vijay": {
+    "cust_id": "5818a0b3360f81f1045476af",
+    "Savings": "5818a8a2360f81f1045476b1",
+    "Credit Card": "5818a9ae360f81f1045476b2",
+    "Checking": "5818aa95360f81f1045476b3"
   },
-  "Peter": {
-    "cust_id": "5a0db6b99a247e701c7765cf",
-    "Savings": "5a0dbbad9a247e701c7765d5",
-    "Credit Card": "5a0dbb6a9a247e701c7765d4",
-    "Checking": "5a0d7f22b390353c953a272d"
+  "Sriram": {
+    "cust_id": "5818a62b360f81f1045476b0",
+    "Savings": "5818abd2360f81f1045476b6",
+    "Credit Card": "5818ab93360f81f1045476b5",
+    "Checking": "5818ab60360f81f1045476b4"
   },
   "users" : [
     {
-      "name" : "Paul Adams",
-      "nickname" : "Paul"
+      "name" : "Vijay Raghu",
+      "nickname" : "Vijay"
     },
     {
-      "name" : "Peter Jones",
-      "nickname" : "Peter"
+      "name" : "Sriram Rad",
+      "nickname" : "Sriram"
     }
   ]
 }
