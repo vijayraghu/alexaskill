@@ -58,7 +58,7 @@ def session_ended():
 def getBalance(nickname, Accounttype):
     with open('details.json') as json_file:
         details = json.load(json_file)
-	apiKey = details['key']
+		apiKey = details['key']
         #apiKey = os.environ.get('NESSIE_API_KEY')
         print apiKey
         if Accounttype == 'Savings':
