@@ -5,13 +5,13 @@ import json
 import os
 import requests
 import datetime
-import twilio.twiml
+#import twilio.twiml
 from flask import Flask
 from flask import jsonify
 from flask import url_for
 from flask import request
 from flask import make_response
-from twilio.rest import TwilioRestClient
+#from twilio.rest import TwilioRestClient
 from flask_ask import Ask, request, session, question, statement, audio, delegate
 
 # Flask app should start in global layout
