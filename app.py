@@ -28,12 +28,12 @@ def get_dialog_state():
 def getAccount(account_nameslot, account_typeslot):
 # delegate dialog to Alexa until all parameters are set
     dialog_state = get_dialog_state()
-    print dialog_state
+    print (dialog_state)
     if dialog_state != COMPLETED_DIALOG_STATE:
         return delegate(speech=None)
     custname = account_nameslot
     accounttype = account_typeslot
-    print custname, accounttype
+    print (custname, accounttype)
     Balance = getBalance(custname, accounttype)
     speech = 'Your ' + accounttype + ' account balance is ' + Balance \
         + ' dollars'
