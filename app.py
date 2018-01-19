@@ -13,7 +13,7 @@ from flask import request
 from flask import make_response
 #from twilio.rest import TwilioRestClient
 from flask_ask import Ask, request, session, question, statement, audio, delegate
-from __future__ import print_function
+#from __future__ import print_function
 
 # Flask app should start in global layout
 app = Flask(__name__)
