@@ -12,7 +12,7 @@ from flask import url_for
 from flask import request
 from flask import make_response
 #from twilio.rest import TwilioRestClient
-from flask_ask import Ask, request, session, question, statement, audio, delegate
+from flask_ask import Ask, request, session, question, statement, audio, delegate, context
 #from __future__ import print_function
 
 # Flask app should start in global layout
@@ -24,12 +24,12 @@ def get_dialog_state():
 	return session['dialogState']
 
 #Account Balance Intent
-@ask.intent('AccountBalIntent')
+@ask.intent("AccountBalIntent")
 def getAccount(accountnameslot, accounttypeslot):
 # delegate dialog to Alexa until all parameters are set
     dialog_state = get_dialog_state()
     print (dialog_state)
-    if dialog_state != COMPLETED_DIALOG_STATE:
+    if dialog_state != "COMPLETED":
         return delegate(speech=None)
     custname = accountnameslot
     accounttype = accounttypeslot
@@ -38,6 +38,7 @@ def getAccount(accountnameslot, accounttypeslot):
     speech = 'Your ' + accounttype + ' account balance is ' + Balance \
         + ' dollars'
     return statement(speech).simple_card('Account_balance', speech)
+
 
 #Stop Intent
 @ask.intent('AMAZON.StopIntent')
