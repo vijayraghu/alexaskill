@@ -24,7 +24,7 @@ def get_dialog_state():
 	return session['dialogState']
 
 #Account Balance Intent
-@ask.intent('Account_balance')
+@ask.intent('AccountBalIntent')
 def getAccount(account_nameslot, account_typeslot):
 # delegate dialog to Alexa until all parameters are set
     dialog_state = get_dialog_state()
