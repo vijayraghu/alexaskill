@@ -35,8 +35,8 @@ def submitReading(AccountReference, MeterReading):
     print (CustAcc, CustReading)
     #Submit = Submit(CustAcc, CustReading)
     #speech = 'Your meter reading ' + CustReading + ' is successfully submitted. Thank you '
-    speech = '<speak> Your meter reading <say-as interpret-as="cardinal">' + CustReading + '</say-as> is successfully submitted. Thank you </speak>'
-    speech = '<speak> Your meter reading <say-as interpret-as="cardinal">12345</say-as> is successfully submitted. Thank you </speak>'
+    #speech = '<speak> Your meter reading <say-as interpret-as="cardinal">' + CustReading + '</say-as> is successfully submitted. Thank you </speak>'
+    speech = '<speak> Your meter reading <say-as interpret-as="digits">12345</say-as> is successfully submitted. Thank you </speak>'
     print (speech)
     return statement(speech).simple_card('Meter Reading', speech)
 
