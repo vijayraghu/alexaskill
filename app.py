@@ -34,7 +34,8 @@ def submitReading(AccountReference, MeterReading):
     CustReading = MeterReading
     print (CustAcc, CustReading)
     #Submit = Submit(CustAcc, CustReading)
-    speech = 'Your meter reading ' + CustReading + ' is successfully submitted. Thank you '
+    #speech = 'Your meter reading ' + CustReading + ' is successfully submitted. Thank you '
+    speech = '<speak> Your meter reading <say-as interpret-as="cardinal">' + CustReading + '</say-as> is successfully submitted. Thank you </speak>'
     return statement(speech).simple_card('Meter Reading', speech)
 
 #Stop Intent
