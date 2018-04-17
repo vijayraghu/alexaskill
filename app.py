@@ -22,7 +22,7 @@ ask = Ask(app, "/")
 def get_dialog_state():
 	return session['dialogState']
 
-#Account Balance Intent
+#Submit Meter Reading Intent
 @ask.intent("Submitmeterreading")
 def submitReading(AccountReference, MeterReading):
 # delegate dialog to Alexa until all parameters are set
