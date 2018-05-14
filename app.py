@@ -66,7 +66,7 @@ def paymentduedate(AccountReference):
     return statement(speech).simple_card('Payment Due Date', speech)
 	
 #Water Meter request Intent
-@ask.intent("Watermeterrequest")
+@ask.intent("Meterrequest")
 def paymentduedate(AccountReference):
 # delegate dialog to Alexa until all parameters are set
     dialog_state = get_dialog_state()
