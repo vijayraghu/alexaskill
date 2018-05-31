@@ -36,7 +36,8 @@ def channeladd(channel):
     speech = '<speak>' + channelname +  'can be added to your account for just ' + channelprice +  '. Do you want to go ahead and add it to your account? </speak>'
     #speech = '<speak>' + channelname +  'can be added to your account for just <say-as interpret-as="digits">' + channelprice + '</say-as> is successfully submitted. Thank you </speak>'
     print (speech)
-    return statement(speech).simple_card('Channel', speech)
+    return question(speech)
+	#.simple_card('Channel', speech)
     
 #Yes Intent
 @ask.intent('AMAZON.YesIntent')
