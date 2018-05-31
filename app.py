@@ -45,7 +45,7 @@ def yes_intent():
 	  return statement('Ok. ' + channelname + ' has been added to your account')
 	
 #No Intent
-@ask.intent('AMAZON.YesIntent')
+@ask.intent('AMAZON.NoIntent')
 def no_intent():
 	  return statement("Goodbye")
 
