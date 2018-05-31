@@ -55,7 +55,24 @@ def channelinquire(channel):
     print (speech)
     return statement(speech)
 	#.simple_card('Channel', speech)
-    
+
+#Cancel channel Intent
+@ask.intent("cancelchannel")
+def channelcancel(channel):
+#delegate dialog to Alexa until all parameters are set
+    dialog_state = get_dialog_state()
+    print (dialog_state)
+    if dialog_state != "COMPLETED":
+        return delegate(speech=None)
+    channelname = channel
+    print (channelname)
+    #channelprice = getchannelprice(channelname)
+    speech = '<speak> Ok ' + channelname + ' has been removed from your account. </speak>'
+    #speech = '<speak>' + channelname +  'can be added to your account for just <say-as interpret-as="digits">' + channelprice + '</say-as> is successfully submitted. Thank you </speak>'
+    print (speech)
+    return statement(speech)
+	#.simple_card('Channel', speech)
+	
 #Yes Intent
 @ask.intent('AMAZON.YesIntent')
 def yes_intent():
