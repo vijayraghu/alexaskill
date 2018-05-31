@@ -41,7 +41,7 @@ def channeladd(channel):
 #Yes Intent
 @ask.intent('AMAZON.YesIntent')
 def yes_intent():
-	  channelname = 'Cinemax'
+	  channelname = 'cinemax channel'
 	  return statement('Ok. ' + channelname + ' has been added to your account')
 	
 #No Intent
