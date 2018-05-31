@@ -67,7 +67,7 @@ def session_ended():
 #Helper function for channelprice
 def getchannelprice(channelname):
 	  #channelname == 'cinemax channel':
-	  channelprice == 'Thirteen dollars and ninety nine cents'
+	  channelprice = 'Thirteen dollars and ninety nine cents'
 	  return channelprice
 		
 if __name__ == '__main__':
