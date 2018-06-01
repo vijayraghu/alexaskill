@@ -84,8 +84,8 @@ def yes_intent():
     print (channel_name)
     if intent_name == "addchannel":
           return statement('Ok. ' + channel_name + ' has been added to your account')
-    else
-          return statement ('Alright. If you want to add a channel, you can say Alexa ask DirectTV to add the channel name?')
+    else:
+          return statement('Alright. If you want to add a channel, you can say Alexa ask DirectTV to add the channel name')
 	
 #No Intent
 @ask.intent('AMAZON.NoIntent')
