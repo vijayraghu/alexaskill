@@ -32,7 +32,7 @@ def channeladd(channel):
         return delegate(speech=None)
     channelname = channel
     print (channelname)
-    session.attributes['intent_name'] = addchannel
+    session.attributes['intent_name'] = "addchannel"
     session.attributes['channel_name'] = channelname
     channelprice = getchannelprice(channelname)
     speech = '<speak>' + channelname +  'can be added to your account for just ' + channelprice +  '. Do you want to go ahead and add it to your account? </speak>'
