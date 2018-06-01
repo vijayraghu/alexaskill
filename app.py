@@ -69,7 +69,7 @@ def channelcancel(channel):
     channelname = channel
     print (channelname)
     #channelprice = getchannelprice(channelname)
-    speech = '<speak> Ok ' + channelname + ' has been removed from your account. </speak>'
+    speech = '<speak> Ok. ' + channelname + ' has been removed from your account. </speak>'
     #speech = '<speak>' + channelname +  'can be added to your account for just <say-as interpret-as="digits">' + channelprice + '</say-as> is successfully submitted. Thank you </speak>'
     print (speech)
     return statement(speech)
