@@ -42,7 +42,7 @@ def Accountbalance():
 		return delegate(speech=None)
 	session.user.accessToken = accessToken
 	balance, accnumber, duedate  = getbalance(accessToken)
-	print (balance, accnumber, duedate)
+	print(balance, accnumber, duedate)
 	message = client.messages \
                 .create(
                      body="Your account balance is " + balance +  ". Your account number is " + accnumber + " and your bill due date is the " + duedate + ". We have sent you an SMS with the details to your mobile number.",
