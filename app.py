@@ -47,9 +47,8 @@ def Accountbalance():
                 .create(
                      body="Your account balance is " + balance +  ". Your account number is " + accnumber + " and your bill due date is the " + duedate + ". We have sent you an SMS with the details to your mobile number.",
                      from_='+14696467609',
-                     to='+9840610434'
+                     to='+919840610434'
                  )
-	print(message.sid)
 	return statement('Your account balance is ' + balance +  '. Your account number is ' + accnumber + ' and your bill due date is the ' + duedate + '. We have sent you an SMS with the details to your mobile number.')
 	#.simple_card('Channel', speech)
 
