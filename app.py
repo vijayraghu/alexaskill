@@ -17,7 +17,8 @@ from twilio.rest import Client
 # Declaring Twilio credentials
 #account_sid = 'accountsid'
 #auth_token = 'accountauthtoken'
-client = Client(account_sid, auth_token)
+#client = Client(account_sid, auth_token)
+client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
 
 # Flask app should start in global layout
 app = Flask(__name__)
