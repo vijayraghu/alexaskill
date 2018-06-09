@@ -31,12 +31,12 @@ def get_dialog_state():
 #Get account balance
 @ask.intent("accountbalance")
 def Accountbalance():
-	print(session.user.accessToken)
 	if session.user.accessToken == None:
 		return statement('To start using this skill, please use the companion app to authenticate on Amazon') \
 			.link_account_card()
 	else:
 		session.user.accessToken = accessToken
+		print(accessToken)
 		balance, accnumber, duedate  = getbalance(accessToken)
 		print(balance, accnumber, duedate)
 		message = client.messages \
