@@ -35,9 +35,9 @@ def Accountbalance():
 		return statement('To start using this skill, please use the companion app to authenticate on Amazon') \
 			.link_account_card()
 	else:
-		print(session.user.accessToken)
-		session.user.accessToken = accesstoken
-		#print(accessToken)
+		#print(session.user.accessToken)
+		accesstoken = session.user.accessToken
+		print(accesstoken)
 		balance, accnumber, duedate  = getbalance(accesstoken)
 		print(balance, accnumber, duedate)
 		client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
