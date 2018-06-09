@@ -36,22 +36,16 @@ def Accountbalance():
 		return statement('To start using this skill, please use the companion app to authenticate on Amazon') \
 			.link_account_card()
 	else:
-		#delegate dialog to Alexa until all parameters are set
-		#dialog_state = get_dialog_state()
-		#print (dialog_state)
-	
-	#if dialog_state != "COMPLETED":
-		#return delegate(speech=None)
-	session.user.accessToken = accessToken
-	balance, accnumber, duedate  = getbalance(accessToken)
-	print(balance, accnumber, duedate)
-	message = client.messages \
-                .create(
+		session.user.accessToken = accessToken
+		balance, accnumber, duedate  = getbalance(accessToken)
+		print(balance, accnumber, duedate)
+		message = client.messages \
+		.create(
                      body="Your account balance is " + balance +  ". Your account number is " + accnumber + " and your bill due date is the " + duedate + ". We have sent you an SMS with the details to your mobile number.",
                      from_='+14696467609',
                      to='+919840610434'
                  )
-	return statement('Your account balance is ' + balance +  '. Your account number is ' + accnumber + ' and your bill due date is the ' + duedate + '. We have sent you an SMS with the details to your mobile number.')
+		return statement('Your account balance is ' + balance +  '. Your account number is ' + accnumber + ' and your bill due date is the ' + duedate + '. We have sent you an SMS with the details to your mobile number.')
 	#.simple_card('Channel', speech)
 
 #Stop Intent
