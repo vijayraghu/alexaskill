@@ -18,7 +18,7 @@ from twilio.rest import Client
 #account_sid = 'accountsid'
 #auth_token = 'accountauthtoken'
 #client = Client(account_sid, auth_token)
-client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -36,16 +36,16 @@ def Accountbalance():
 			.link_account_card()
 	else:
 		print(session.user.accessToken)
-		session.user.accessToken = accessToken
+		session.user.accessToken = accesstoken
 		#print(accessToken)
-		balance, accnumber, duedate  = getbalance(accessToken)
+		balance, accnumber, duedate  = getbalance(accesstoken)
 		print(balance, accnumber, duedate)
-		message = client.messages \
-		.create(
-                     body="Your account balance is " + balance +  ". Your account number is " + accnumber + " and your bill due date is the " + duedate + ". We have sent you an SMS with the details to your mobile number.",
-                     from_='+14696467609',
-                     to='+919840610434'
-                 )
+		client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+		message = client.messages.create(
+			body="Your account balance is " + balance +  ". Your account number is " + accnumber + " and your bill due date is the " + duedate + ". We have sent you an SMS with the details to your mobile number.",
+                     	from_='+14696467609',
+                     	to='+919840610434'
+		)
 		return statement('Your account balance is ' + balance +  '. Your account number is ' + accnumber + ' and your bill due date is the ' + duedate + '. We have sent you an SMS with the details to your mobile number.')
 	#.simple_card('Channel', speech)
 
@@ -65,7 +65,7 @@ def session_ended():
 	return "{}", 200
 
 #Helper function for balance, account number and due date
-def getbalance(accessToken):
+def getbalance(accesstoken):
 	balance = 'Thirteen dollars and ninety nine cents',
 	accnumber = '34567654',
 	duedate = '06/20/2018'
