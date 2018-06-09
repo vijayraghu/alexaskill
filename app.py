@@ -34,7 +34,7 @@ def Accountbalance():
 	print(session.user.accessToken)
 	if session.user.accessToken == None:
 		return statement('To start using this skill, please use the companion app to authenticate on Amazon') \
-			.LinkAccount_card()
+			.link_account_card()
 	else:
 		#delegate dialog to Alexa until all parameters are set
 		dialog_state = get_dialog_state()
