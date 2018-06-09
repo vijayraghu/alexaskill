@@ -14,12 +14,6 @@ from flask import make_response
 from flask_ask import Ask, request, session, question, statement, audio, delegate, context
 from twilio.rest import Client
 
-# Declaring Twilio credentials
-#account_sid = 'accountsid'
-#auth_token = 'accountauthtoken'
-#client = Client(account_sid, auth_token)
-
-
 # Flask app should start in global layout
 app = Flask(__name__)
 ask = Ask(app, "/")
@@ -35,7 +29,6 @@ def Accountbalance():
 		return statement('To start using this skill, please use the companion app to authenticate on Amazon') \
 			.link_account_card()
 	else:
-		#print(session.user.accessToken)
 		accesstoken = session.user.accessToken
 		print(accesstoken)
 		balance, accnumber, duedate  = getbalance(accesstoken)
@@ -44,7 +37,6 @@ def Accountbalance():
 		client.messages.create(from_='+14696467609', 
 				       to='+917338856833',
 				       body='Your balance is ' + balance +  '. Your account number is ' + accnumber + ' and bill is due on ' + duedate)
-		#return statement('This is working. Something is wrong with actual statement')
 		return statement('Your account balance is ' + balance +  '. Your account number is ' + accnumber + ' and your bill due date is the ' + duedate + '. We have sent you an SMS with the details to your mobile number.')
 	#.simple_card('Channel', speech)
 
