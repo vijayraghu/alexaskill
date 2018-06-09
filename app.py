@@ -37,11 +37,11 @@ def Accountbalance():
 			.link_account_card()
 	else:
 		#delegate dialog to Alexa until all parameters are set
-		dialog_state = get_dialog_state()
-		print (dialog_state)
+		#dialog_state = get_dialog_state()
+		#print (dialog_state)
 	
-	if dialog_state != "COMPLETED":
-		return delegate(speech=None)
+	#if dialog_state != "COMPLETED":
+		#return delegate(speech=None)
 	session.user.accessToken = accessToken
 	balance, accnumber, duedate  = getbalance(accessToken)
 	print(balance, accnumber, duedate)
