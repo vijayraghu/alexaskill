@@ -40,10 +40,10 @@ def Accountbalance():
 		print(accesstoken)
 		balance, accnumber, duedate  = getbalance(accesstoken)
 		print(balance, accnumber, duedate)
-		#client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-		#client.messages.create(from_='+14696467609', 
-				       #to='+919840610434',
-				       #body='Your account balance is ' + balance +  '. Your account number is ' + accnumber + ' and bill is due on ' + duedate)
+		client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+		client.messages.create(from_='+14696467609', 
+				       to='+919840610434',
+				       body='Your balance is ' + balance +  '. Your account number is ' + accnumber + ' and bill is due on ' + duedate)
 		#return statement('This is working. Something is wrong with actual statement')
 		return statement('Your account balance is ' + balance +  '. Your account number is ' + accnumber + ' and your bill due date is the ' + duedate + '. We have sent you an SMS with the details to your mobile number.')
 	#.simple_card('Channel', speech)
@@ -65,7 +65,7 @@ def session_ended():
 
 #Helper function for balance, account number and due date
 def getbalance(accesstoken):
-	balance = 'Thirteen dollars and ninety nine cents'
+	balance = 'Thirteen dollars'
 	accnumber = '34567654'
 	duedate = '06/20/2018'
 	return (balance, accnumber, duedate)
