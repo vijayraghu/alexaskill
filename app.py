@@ -69,7 +69,7 @@ def getbalance(accesstoken):
 	balance = 'Thirteen dollars and ninety nine cents',
 	accnumber = '34567654',
 	duedate = '06/20/2018'
-	return balance, accnumber, duedate
+	return (balance, accnumber, duedate)
 		
 if __name__ == '__main__':
 	port = int(os.getenv('PORT', 5000))
