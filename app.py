@@ -35,8 +35,9 @@ def Accountbalance():
 		return statement('To start using this skill, please use the companion app to authenticate on Amazon') \
 			.link_account_card()
 	else:
+		print(session.user.accessToken)
 		session.user.accessToken = accessToken
-		print(accessToken)
+		#print(accessToken)
 		balance, accnumber, duedate  = getbalance(accessToken)
 		print(balance, accnumber, duedate)
 		message = client.messages \
