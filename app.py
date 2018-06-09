@@ -65,8 +65,8 @@ def session_ended():
 
 #Helper function for balance, account number and due date
 def getbalance(accesstoken):
-	balance = 'Thirteen dollars and ninety nine cents',
-	accnumber = '34567654',
+	balance = 'Thirteen dollars and ninety nine cents'
+	accnumber = '34567654'
 	duedate = '06/20/2018'
 	return (balance, accnumber, duedate)
 		
