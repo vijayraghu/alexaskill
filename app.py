@@ -67,14 +67,14 @@ def cancel():
 #End Session Intent
 @ask.session_ended
 def session_ended():
-	  return "{}", 200
+	return "{}", 200
 
 #Helper function for balance, account number and due date
 def getbalance(accessToken):
 	balance = 'Thirteen dollars and ninety nine cents',
 	accnumber = '34567654',
 	duedate = '06/20/2018'
-		return balance, accnumber, duedate
+	return balance, accnumber, duedate
 		
 if __name__ == '__main__':
 	port = int(os.getenv('PORT', 5000))
