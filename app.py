@@ -22,6 +22,20 @@ ask = Ask(app, "/")
 def get_dialog_state():
 	return session['dialogState']
 
+#Launch skill messages
+@ask.launch():
+def launched():
+	if session.user.accessToken == None:
+		return statement('To start using the Optus skill, please use the companion app to authenticate on Amazon') \
+			.link_account_card()
+	else:
+		accesstoken = session.user.accessToken
+		userdetails = get_user_info(accesstoken)
+		if userdetails is None:
+			return question('Hello. Welcome to the Optus skill on Amazon Alexa. You can check your account balance, your data usage and get answers to questions on relocation request, learn what to do if your phone has no signal or how to enable internet on your phone. What do you want to do today')
+		else:
+			return question('Hello '+userdetails['name'].split(' ')[0]+'! Welcome to the Optus skill on Amazon Alexa. You can check your account balance, your data usage and get answers to questions on relocation request, learn what to do if your phone has no signal or how to enable internet on your phone. What do you want to do today')
+
 #Get account balance
 @ask.intent("accountbalance")
 def Accountbalance():
@@ -143,6 +157,16 @@ def getusage(accesstoken):
 	remainingdata = '3.42 GB'
 	effectivedate = '06/28/2018'
 	return (consumedpercent, datacap, remainingdata, effectivedate)
+
+#Helper function for user information
+def get_user_info(accesstoken):
+    #print access_token
+    amazonProfileURL = 'https://api.amazon.com/user/profile?access_token='
+    r = requests.get(url=amazonProfileURL+accesstoken)
+    if r.status_code == 200:
+        return r.json()
+    else:
+        return False 
 		
 if __name__ == '__main__':
 	port = int(os.getenv('PORT', 5000))
