@@ -33,11 +33,11 @@ def Accountbalance():
 		print(accesstoken)
 		balance, accnumber, duedate  = getbalance(accesstoken)
 		print(balance, accnumber, duedate)
-		client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-		client.messages.create(from_='+14696467609', 
-				       to='+917338856833',
-				       body='Your balance is ' + balance +  '. Your account number is ' + accnumber + ' and bill is due on ' + duedate)
-		return statement('Your account balance is ' + balance +  '. Your account number is ' + accnumber + ' and your bill due date is the ' + duedate + '. We have sent you an SMS with the details to your mobile number.')
+		#client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+		#client.messages.create(from_='+14696467609', 
+				       #to='+917338856833',
+				       #body='Your balance is ' + balance +  '. Your account number is ' + accnumber + ' and bill is due on ' + duedate)
+		return statement('<speak> Your account balance is ' + balance +  '. Your account number is <say-as interpret-as="digits"> ' + accnumber + '</say-as> and your bill due date is the ' + duedate + '. We have sent you an SMS with the details to your mobile number. </speak>')
 	#.simple_card('Channel', speech)
   
 #Get data usage status
@@ -51,10 +51,10 @@ def DataUsage():
 		print(accesstoken)
 		consumedpercent, datacap, remainingdata, effectivedate  = getusage(accesstoken)
 		print(consumedpercent, datacap, remainingdata, effectivedate)
-		client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-		client.messages.create(from_='+14696467609', 
-				       to='+917338856833',
-				       body='You have used ' + consumedpercent +  ' of your monthly limit of ' + datacap + ' data and have ' + remainingdata + ' left until ' + effectivedate)
+		#client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+		#client.messages.create(from_='+14696467609', 
+				       #to='+917338856833',
+				       #body='You have used ' + consumedpercent +  ' of your monthly limit of ' + datacap + ' data and have ' + remainingdata + ' left until ' + effectivedate)
 		return statement('You have used ' + consumedpercent +  ' of your monthly limit of ' + datacap + ' data and have ' + remainingdata + ' left until ' + effectivedate +  '. You can get more details about your data breakdown in Myoptus app or login to your account at www.optus.com')
 	#.simple_card('Channel', speech)
   
@@ -73,7 +73,7 @@ def RelocateRequest():
 		accesstoken = session.user.accessToken
 		print(accesstoken)
 		session.attributes['intent_name'] = "relocaterequest"
-		return question('You can now apply for a relocation request online or chat with our customer service or else call us at 1300555241. Would you like to chat with our live chat team now?').reprompt('I did not get that. Would you like to initiate a chat now?')
+		return question('<speak> You can now apply for a relocation request online or chat with our customer service or else call us at <say-as interpret-as="telephone"> 1300555241 </say-as>. Would you like to chat with our live chat team now?').reprompt('I did not get that. Would you like to initiate a chat now? </speak>')
 	#.simple_card('Channel', speech)
   
 #Customer FAQ
@@ -101,10 +101,10 @@ def yes_intent():
 	intent_name = session.attributes['intent_name']
 	print(intent_name)
 	if intent_name == "relocaterequest":
-		client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-		client.messages.create(from_='+14696467609', 
-				       to='+917338856833',
-				       body='Please click on http://yesopt.us/chat2us to initiate a livechat with our live chat team.')
+		#client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+		#client.messages.create(from_='+14696467609', 
+				       #to='+917338856833',
+				       #body='Please click on http://yesopt.us/chat2us to initiate a livechat with our live chat team.')
 		return statement('We have sent a SMS with the link to initiate a live chat to your mobile number. Please click on that link to chat with us')
 	else:
 		return statement('You can ask Alexa about your Optus account balance, data usage or for information about Optus services')
