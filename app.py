@@ -55,7 +55,7 @@ def DataUsage():
 		client.messages.create(from_='+14696467609', 
 				       to='+917338856833',
 				       body='You have used ' + consumedpercent +  'of your monthly limit of ' + datacap + 'data and have ' + remainingdata + 'left until ' + effectivedate)
-		return statement('You have used ' + consumedpercent +  'of your monthly limit of ' + datacap + 'data and have ' + remainingdata + 'left until ' + effectivedate '. You can get more details about your data breakdown in Myoptus app or login to your account at www.optus.com')
+		return statement('You have used ' + consumedpercent +  'of your monthly limit of ' + datacap + 'data and have ' + remainingdata + 'left until ' + effectivedate +  '. You can get more details about your data breakdown in Myoptus app or login to your account at www.optus.com')
 	#.simple_card('Channel', speech)
   
 #Submit relocate request
