@@ -67,7 +67,7 @@ def RelocateRequest():
 	else:
 #delegate dialog to Alexa until all parameters are set
 		dialog_state = get_dialog_state()
-		print (dialog_state)
+		print(dialog_state)
 		if dialog_state != "COMPLETED":
 			return delegate(speech=None)
 		accesstoken = session.user.accessToken
@@ -99,7 +99,7 @@ def Faqtopic(faq):
 @ask.intent('AMAZON.YesIntent')
 def yes_intent():
 	intent_name = session.attributes['intent_name']
-	print (intent_name)
+	print(intent_name)
 	if intent_name == "relocaterequest":
 		client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
 		client.messages.create(from_='+14696467609', 
