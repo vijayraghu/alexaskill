@@ -78,13 +78,13 @@ def RelocateRequest():
   
 #Customer FAQ
 @ask.intent("faq")
-def Faqtopic(faq):
+def Faqtopic(faqtopic):
 #delegate dialog to Alexa until all parameters are set
 	dialog_state = get_dialog_state()
 	print(dialog_state)
 	if dialog_state != "COMPLETED":
 		return delegate(speech=None)
-	slotvalue = faq
+	slotvalue = faqtopic
 	print(slotvalue)
 	if slotvalue == 'top up my phone':
 		returnstatement('There are various options for recharging your Prepaid Mobile or Mobile Broadband service. The My Optus app is the easiest way to top up or recharge. You can also store your credit card details to make your next recharge even easier. The My Optus app is available on Android and Apple smartphones. Recharge over the phone with a credit card by calling 555 from your Prepaid Mobile. Dont worry if you have run out of credit as calls to 555 are free. AutoRecharge is the simplest way to stay on top of your Prepaid plan. Just choose up the amount you want to recharge and the frequency of how often you would like the recharge to be applied. We will take care of the rest.')
