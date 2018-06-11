@@ -23,7 +23,7 @@ def get_dialog_state():
 	return session['dialogState']
 
 #Launch skill messages
-@ask.launch():
+@ask.launch()
 def launched():
 	if session.user.accessToken == None:
 		return statement('To start using the Optus skill, please use the companion app to authenticate on Amazon') \
