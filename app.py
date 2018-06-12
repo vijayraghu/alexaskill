@@ -87,7 +87,7 @@ def RelocateRequest():
 		accesstoken = session.user.accessToken
 		print(accesstoken)
 		session.attributes['intent_name'] = "relocaterequest"
-		return question('<speak> You can now apply for a relocation request online or chat with our customer service or else call us at <say-as interpret-as="telephone"> 1300555241 </say-as>. Would you like to chat with our live chat team now?. </speak>').reprompt('I did not get that. Would you like to initiate a chat now?')
+		return question('<speak> You can now apply for a relocation request online or chat with our customer service or else call us at <say-as interpret-as="telephone"> 1300555241 </say-as> Would you like to chat with our live chat team now? </speak>').reprompt('I did not get that. Would you like to initiate a chat now?')
 	#.simple_card('Channel', speech)
   
 #Customer FAQ
@@ -126,7 +126,7 @@ def yes_intent():
 #No Intent
 @ask.intent('AMAZON.NoIntent')
 def no_intent():
-	return statement('Please visit www.offer.optus.com.au/relocation# to submit your relocation request online or call us at 1300555241 to speak to our customer service team.')
+	return statement('<speak> Please visit www.offer.optus.com.au/relocation# to submit your relocation request online or call us at <say-as interpret-as="telephone"> 1300555241 </say-as> to speak to our customer service team. </speak>')
 
 #Stop Intent
 @ask.intent('AMAZON.StopIntent')
