@@ -100,7 +100,7 @@ def Faqtopic(faqtopic):
 		return delegate(speech=None)
 	slotvalue = faqtopic
 	print(slotvalue)
-	list_1 = ['top up my phone', 'topup my phone', 'topup', 'top up', 'recharge', 'recharge my phone']
+	list_1 = ['top up my phone', 'topup my phone', 'topup', 'top up', 'recharge', 'recharge my phone', 'top of my phone', 'top pop my phone', 'recharge my phone', 'recharge my balance']
 	list_2 = ['no signal', 'signal issues', 'low signal']
 	list_3 = ['setup my phone for the internet', 'set up my phone for the internet', 'setup my phone to the internet', 'set up my phone for the internet']
 	if slotvalue in list_1:
