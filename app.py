@@ -68,11 +68,6 @@ def def accountBalance()::
 		return statement('To start using this skill, please use the companion app to authenticate on Amazon') \
 			.link_account_card()
 	else:
-		# delegate dialog to Alexa until all parameters are set
-		dialog_state = get_dialog_state()
-		print (dialog_state)
-		if dialog_state != "COMPLETED":
-			return delegate(speech=None)
 		# get account reference from access token
 		accesstoken = session.user.accessToken
 		accountreference = getaccountreference(accesstoken)
@@ -90,11 +85,6 @@ def paymentduedate():
 		return statement('To start using this skill, please use the companion app to authenticate on Amazon') \
 			.link_account_card()
 	else:
-		#delegate dialog to Alexa until all parameters are set
-		dialog_state = get_dialog_state()
-		print(dialog_state)
-		if dialog_state != "COMPLETED":
-			return delegate(speech=None)
 		# get account reference from access token
 		accesstoken = session.user.accessToken
 		accountreference = getaccountreference(accesstoken)
@@ -112,11 +102,6 @@ def paymentduedate():
 		return statement('To start using this skill, please use the companion app to authenticate on Amazon') \
 			.link_account_card()
 	else:
-		#delegate dialog to Alexa until all parameters are set
-		dialog_state = get_dialog_state()
-		print(dialog_state)
-		if dialog_state != "COMPLETED":
-			return delegate(speech=None)
 		# get account reference from access token
 		accesstoken = session.user.accessToken
 		accountreference = getaccountreference(accesstoken)
