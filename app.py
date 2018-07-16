@@ -63,7 +63,7 @@ def submitReading(MeterReading):
 
 #Get Account Balance
 @ask.intent("Accountbalance")
-def def accountBalance()::
+def accountBalance()::
 	if session.user.accessToken == None:
 		return statement('To start using this skill, please use the companion app to authenticate on Amazon') \
 			.link_account_card()
