@@ -55,9 +55,9 @@ def submitReading(MeterReading):
 		print(accesstoken, accountreference, meterreading)
 		# Send SMS with meter reading
 		client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-		client.messages.create({from_='whatsapp:+14155238886', 
-				       to='whatsapp:+919840610434',
-				       body='Your meter reading ' + meterreading +  '. is successfully submitted for your account reference number ' + accountreference +  '. Thank you'})
+		client.messages.create({from: 'whatsapp:+14155238886', 
+				       to: 'whatsapp:+919840610434',
+				       body= 'Your meter reading ' + meterreading +  '. is successfully submitted for your account reference number ' + accountreference +  '. Thank you'})
 		#speak out response
 		return statement('<speak> Your meter reading <say-as interpret-as="digits">' + meterreading + '</say-as> is successfully submitted for your account reference number <say-as interpret-as="digits">' + accountreference +  '</say-as>. Thank you. We have sent you an SMS with the details to your mobile number. </speak>')
 
