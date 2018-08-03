@@ -25,6 +25,7 @@ def get_dialog_state():
 #Launch skill messages
 @ask.launch
 def launched():
+	print ('I am at launch')
 	if session.user.accessToken == None:
 		return statement('To start using the Yorkshire Water skill, please use the companion app to authenticate on Amazon') \
 			.link_account_card()
