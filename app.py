@@ -56,7 +56,7 @@ def submitReading(MeterReading):
 		dialog_state = get_dialog_state()
 		print (dialog_state)
 		if dialog_state != "COMPLETED":
-			return delegate(speech=None)
+			return delegate(None)
 		# get account reference from access token
 		accesstoken = session.user.accessToken
 		accountreference = getaccountreference(accesstoken)
