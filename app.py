@@ -22,23 +22,15 @@ ask = Ask(app, "/")
 def get_dialog_state():
 	return session['dialogState']
 
-
-@app.route('/start_test', methods=['GET'])
-def starttest():
-	print ('I am here')
-	return "success"
-
 #Launch skill messages
 @ask.launch
 def launched():
-	print ('I am at launch')
 	if session.user.accessToken == None:
 		return statement('To start using the Yorkshire Water skill, please use the companion app to authenticate on Amazon') \
 			.link_account_card()
 	else:
 		accesstoken = session.user.accessToken
 		userdetails = get_user_info(accesstoken)
-		print (userdetails)
 		if userdetails is None:
 			return question('Hello. Welcome to the Yorkshire Water skill on Amazon Alexa. You can check your account balance, submit your meter reading, get your next payment date, request for a water meter or submit a callback request for one of our customer service agents to call you.')
 		else:
@@ -47,7 +39,6 @@ def launched():
 #Submit Meter Reading Intent
 @ask.intent("Submitmeterreading")
 def submitReading(MeterReading):
-	print ('I am here')
 	if session.user.accessToken == None:
 		return statement('To start using this skill, please use the companion app to authenticate on Amazon') \
 			.link_account_card()
