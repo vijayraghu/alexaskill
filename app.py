@@ -40,7 +40,7 @@ def launched():
 #Submit Meter Reading Intent
 @ask.intent("Submitmeterreading")
 def submitReading(MeterReading):
-	print 'I am here'
+	print ('I am here')
 	if session.user.accessToken == None:
 		return statement('To start using this skill, please use the companion app to authenticate on Amazon') \
 			.link_account_card()
