@@ -31,7 +31,7 @@ def launched():
 	else:
 		accesstoken = session.user.accessToken
 		userdetails = get_user_info(accesstoken)
-		print userdetails
+		print (userdetails)
 		if userdetails is None:
 			return question('Hello. Welcome to the Yorkshire Water skill on Amazon Alexa. You can check your account balance, submit your meter reading, get your next payment date, request for a water meter or submit a callback request for one of our customer service agents to call you.')
 		else:
