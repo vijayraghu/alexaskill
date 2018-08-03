@@ -133,7 +133,7 @@ def callbackrequest(Scheduledate):
 		dialog_state = get_dialog_state()
 		print(dialog_state)
 		if dialog_state != "COMPLETED":
-			return delegate(speech=None)
+			return delegate(None)
 		# get account reference from access token
 		Callbackdate = Scheduledate
 		accesstoken = session.user.accessToken
