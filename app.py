@@ -22,6 +22,12 @@ ask = Ask(app, "/")
 def get_dialog_state():
 	return session['dialogState']
 
+
+@app.route('/start_test', methods=['GET'])
+def starttest():
+	print ('I am here')
+	return "success"
+
 #Launch skill messages
 @ask.launch
 def launched():
