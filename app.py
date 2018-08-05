@@ -35,7 +35,7 @@ def start():
 	print (response.text)
 	output = json.loads(response.text)
 	output_text = output['result']['fulfillment']['speech']
-	output_text = output_text.decode('utf-8')
+	#output_text = output_text.decode('utf-8')
 				
 	# Send whatsapp with dialogflow response
 	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
