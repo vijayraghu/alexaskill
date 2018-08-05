@@ -19,6 +19,7 @@ app = Flask(__name__)
 @app.route('/start', methods=['GET','POST'])
 def start():
 	caller_phone_number = request.values.get('From')
+	print (caller_phone_number)
 	user_id = request.values.get('From')
 	input_text = request.values.get('Body')
 	apiai_language = 'en'
@@ -41,9 +42,9 @@ def start():
 	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
 	client.messages.create(body=output_text, 
 			       from_='whatsapp:+14155238886', 
-			       to='caller_phone_number'
+			       to=caller_phone_number
 			      )					  
-	return output_text
+	return str(response)
 	
 if __name__ == '__main__':
 	port = int(os.getenv('PORT', 5000))
