@@ -32,7 +32,7 @@ def start():
 			   'sessionId': user_id
 			  }
 	response = requests.request("POST", url=apiai_url, data=json.dumps(payload), headers=headers, params=apiai_querystring)
-	print response.text
+	print (response.text)
 	output = json.loads(response.text)
 	output_text = output['result']['fulfillment']['speech']
 	output_text = output_text.decode('utf-8')
