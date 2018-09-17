@@ -8,7 +8,6 @@ from flask import Flask, request, Response, make_response, jsonify, url_for
 # Twilio Helper Library
 from twilio.rest import Client
 
-
 # Declare global variables
 apiai_client_access_key = os.environ["APIAPI_CLIENT_ACCESS_KEY"]
 apiai_url = "https://api.api.ai/v1/query"
