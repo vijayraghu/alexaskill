@@ -30,7 +30,7 @@ def getAccount(accountnameslot, accounttypeslot):
     dialog_state = get_dialog_state()
     print (dialog_state)
     if dialog_state != "COMPLETED":
-        return delegate(speech=None)
+        return delegate(None)
     custname = accountnameslot
     accounttype = accounttypeslot
     print (custname, accounttype)
@@ -38,7 +38,6 @@ def getAccount(accountnameslot, accounttypeslot):
     speech = 'Your ' + accounttype + ' account balance is ' + Balance \
         + ' dollars'
     return statement(speech).simple_card('Account_balance', speech)
-
 
 #Stop Intent
 @ask.intent('AMAZON.StopIntent')
