@@ -41,7 +41,7 @@ def book_appointment():
 	return statement('<speak> Your request for appointment on the ' + appointment_date + ' at ' + appointment_time + '. been successfully submitted. The service request number is <say-as interpret-as="cardinal">456756435</say-as>. We have sent you an SMS with the details to your mobile number.</speak>')
 
 #Pre-order device
-@ask.intent("pre_oder_device")
+@ask.intent("pre_order_device")
 def pre_order():
 	## delegate dialog to Alexa until all parameters are set
 	dialog_state = get_dialog_state()
