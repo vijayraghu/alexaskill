@@ -24,7 +24,7 @@ def get_dialog_state():
 
 #Appointment Booking Intent
 @ask.intent("geniusbar_appointment")
-def book_appointment():
+def book_appointment(device_serial_number, phone_number, appointment_date, appointment_time, problem_statement, zip_code):
 	# delegate dialog to Alexa until all parameters are set
 	dialog_state = get_dialog_state()
 	print (dialog_state)
@@ -42,7 +42,7 @@ def book_appointment():
 
 #Pre-order device
 @ask.intent("pre_order_device")
-def pre_order():
+def pre_order(preorder_product, delivery_location, phone_number, collection_mode):
 	## delegate dialog to Alexa until all parameters are set
 	dialog_state = get_dialog_state()
 	print (dialog_state)
