@@ -38,7 +38,7 @@ def book_appointment(device_serial_number, phone_number, appointment_date, appoi
 			       #to='whatsapp:+919840610434'
 			      #)
 	#speak out response
-	return statement('<speak> Your request for appointment on the ' + appointment_date + ' at ' + appointment_time + '. been successfully submitted. The service request number is <say-as interpret-as="digits">456756435</say-as>. We have sent you an SMS with the details to your mobile number.</speak>')
+	return statement('<speak> Your request for appointment on the ' + appointment_date + ' at ' + appointment_time + '. been successfully submitted. The service request number is <say-as interpret-as="digits">456756435</say-as> We have sent you an SMS with the details to your mobile number.</speak>')
 
 #Pre-order device
 @ask.intent("pre_order_device")
@@ -56,7 +56,7 @@ def pre_order(preorder_product, delivery_location, phone_number, collection_mode
 			       #body='Your request for preorder of ' + preorder_product + ' has been successfully accepted. The reference number is 876546756. You will receive an email with further details shortly '
 			      #)
 	#speak out response
-	return statement('<speak> Your request for preorder of ' + preorder_product + ' has been successfully accepted. The reference number is <say-as interpret-as="digits">876546756</say-as>.We have sent you an SMS with the details to your mobile number.</speak>')
+	return statement('<speak> Your request for preorder of ' + preorder_product + ' has been successfully accepted. The reference number is <say-as interpret-as="digits">876546756</say-as> We have sent you an SMS with the details to your mobile number.</speak>')
  
 #Stop Intent
 @ask.intent('AMAZON.StopIntent')
