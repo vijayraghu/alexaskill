@@ -91,7 +91,7 @@ def cancel():
 @ask.session_ended
 def session_ended():
 	return "{}", 200
-	
+
 #Helper function for Balance
 def getBalance(accnum, accounttype):
 	with open('details.json') as json_file:
