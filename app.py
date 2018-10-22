@@ -130,13 +130,13 @@ def getLastpurchase(accnum, accounttype):
     	with open('details.json') as json_file:
 		details = json.load(json_file)
 		apiKey = os.environ.get('NESSIE_API_KEY')
-        	print (apiKey, accnum)
-        	accountId = details[accnum][accounttype]
-        	print (accountId)
+		print (apiKey, accnum)
+		accountId = details[accnum][accounttype]
+		print (accountId)
 		url = 'http://api.reimaginebanking.com/accounts/{}/purchases?key={}'.format(accountId, apiKey)
 		response = requests.get(url, headers={'content-type': 'application/json'})
-        	lastpurchase = response.json()
-        	return lastpurchase
+		lastpurchase = response.json()
+		return lastpurchase
 		
 if __name__ == '__main__':
 	port = int(os.getenv('PORT', 5000))
