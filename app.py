@@ -47,8 +47,8 @@ def getAccount(accountnumberslot, accounttypeslot):
     	print (dialog_state)
     	if dialog_state != "COMPLETED":
         	return delegate(None)
-   	accnum = accountnumberslot
-    	accounttype = accounttypeslot
+	accnum = accountnumberslot
+	accounttype = accounttypeslot
     	print (accnum, accounttype)
     	lastpurchase = getLastpurchase(accnum, accounttype)
 	Amount = lastpurchase[0][u'amount']
@@ -67,8 +67,8 @@ def getAccount(accountnumberslot, accounttypeslot):
     	print (dialog_state)
     	if dialog_state != "COMPLETED":
         	return delegate(None)
-   	accnum = accountnumberslot
-    	accounttype = accounttypeslot
+	accnum = accountnumberslot
+	accounttype = accounttypeslot
     	print (accnum, accounttype)
 	lasttransfer = getLasttransfer(accnum, accounttype)
 	Amount = lasttransfer[0][u'amount']
