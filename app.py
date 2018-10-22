@@ -98,9 +98,9 @@ def getBalance(accnum, accounttype):
 		details = json.load(json_file)
 		apiKey = os.environ.get('NESSIE_API_KEY')
 		print (apiKey, accnum)
-		if Accounttype == 'Savings':
+		if accounttype == 'Savings':
 			accountId = details[accnum]['Savings']
-		elif Accounttype == 'Checking':
+		elif accounttype == 'Checking':
 			accountId = details[accnum]['Checking']
 		else:
 			accountId = details[accnum]['Credit Card']
