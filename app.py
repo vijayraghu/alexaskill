@@ -55,7 +55,7 @@ def getAccount(accountnumberslot, accounttypeslot):
 	date = lastpurchase[0][u'purchase_date']
 	Purchasedate = str(date)
 	speech = 'The last purchase you made was for ' + Purchaseamount \
-		+ ' dollars on ' + Purchasedate + '
+		+ ' dollars on ' + Purchasedate'
 	return statement(speech).simple_card('Last purchase', speech)
 
 #Last transfer Intent
@@ -74,7 +74,7 @@ def getAccount(accountnumberslot, accounttypeslot):
 	date = lasttransfer[0][u'transaction_date']
 	Transferdate = str(date)
 	speech = 'The last transfer you made was for ' + Transferamount \
-		+ ' dollars on ' + Transferdate + .'
+		+ ' dollars on ' + Transferdate'
 	return statement(speech).simple_card('Last transfer', speech)
 
 #Stop Intent
