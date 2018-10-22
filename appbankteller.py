@@ -25,19 +25,59 @@ def get_dialog_state():
 
 #Account Balance Intent
 @ask.intent("AccountBalIntent")
-def getAccount(accountnameslot, accounttypeslot):
+def getAccount(accountnumberslot, accounttypeslot):
 # delegate dialog to Alexa until all parameters are set
-    dialog_state = get_dialog_state()
-    print (dialog_state)
-    if dialog_state != "COMPLETED":
-        return delegate(None)
-    custname = accountnameslot
-    accounttype = accounttypeslot
-    print (custname, accounttype)
-    Balance = getBalance(custname, accounttype)
-    speech = 'Your ' + accounttype + ' account balance is ' + Balance \
-        + ' dollars'
-    return statement(speech).simple_card('Account_balance', speech)
+    	dialog_state = get_dialog_state()
+    	print (dialog_state)
+    	if dialog_state != "COMPLETED":
+        	return delegate(None)
+    	accnum = accountnumberslot
+    	accounttype = accounttypeslot
+    	print (accnum, accounttype)
+    	Balance = getBalance(accnum, accounttype)
+    	speech = 'Your ' + accounttype + ' account balance is ' + Balance \
+        	+ ' dollars'
+    	return statement(speech).simple_card('Account_balance', speech)
+
+#Last purchase Intent
+@ask.intent("Lastpurchase")
+def getAccount(accountnumberslot, accounttypeslot):
+# delegate dialog to Alexa until all parameters are set
+    	dialog_state = get_dialog_state()
+    	print (dialog_state)
+    	if dialog_state != "COMPLETED":
+        	return delegate(None)
+   	accnum = accountnumberslot
+    	accounttype = accounttypeslot
+    	print (accnum, accounttype)
+    	lastpurchase = getLastpurchase(accnum, accounttype)
+	Amount = lastpurchase[0][u'amount']
+        Purchaseamount = str(Amount)
+	date = lastpurchase[0][u'purchase_date']
+	Purchasedate = str(date)
+	speech = 'The last purchase you made was for ' + Purchaseamount \
+		+ ' dollars on ' + Purchasedate + .'
+    	return statement(speech).simple_card('Last purchase', speech)
+
+#Last transfer Intent
+@ask.intent("Lasttransfer")
+def getAccount(accountnumberslot, accounttypeslot):
+# delegate dialog to Alexa until all parameters are set
+    	dialog_state = get_dialog_state()
+    	print (dialog_state)
+    	if dialog_state != "COMPLETED":
+        	return delegate(None)
+   	accnum = accountnumberslot
+    	accounttype = accounttypeslot
+    	print (accnum, accounttype)
+	lasttransfer = getLasttransfer(accnum, accounttype)
+	Amount = lasttransfer[0][u'amount']
+        Transferamount = str(Amount)
+	date = lasttransfer[0][u'transaction_date']
+	Transferdate = str(date)
+	speech = 'The last transfer you made was for ' + Transferamount \
+		+ ' dollars on ' + Transferdate + .'
+    	return statement(speech).simple_card('Last transfer', speech)
 
 #Stop Intent
 @ask.intent('AMAZON.StopIntent')
@@ -55,18 +95,18 @@ def session_ended():
 	return "{}", 200
 	
 #Helper function for Balance
-def getBalance(nickname, Accounttype):
+def getBalance(accnum, accounttype):
     with open('details.json') as json_file:
         details = json.load(json_file)
 	#apiKey = details["key"]
         apiKey = os.environ.get('NESSIE_API_KEY')
-        print (apiKey)
+        print (apiKey, accnum)
         if Accounttype == 'Savings':
-            accountId = details[nickname]['Savings']
+            accountId = details[accnum]['Savings']
         elif Accounttype == 'Checking':
-            accountId = details[nickname]['Checking']
+            accountId = details[accnum]['Checking']
         else:
-            accountId = details[nickname]['Credit Card']
+            accountId = details[accnum]['Credit Card']
         url = \
             'http://api.reimaginebanking.com/accounts/{}?key={}'.format(accountId,
                 apiKey)
@@ -78,6 +118,33 @@ def getBalance(nickname, Accounttype):
         accountbalance = result[u'balance']
         Balance = str(accountbalance)
         return Balance
+
+#Helper function for Last transfer
+def getLasttransfer(accnum, accounttype):
+	with open('details.json') as json_file:
+        	details = json.load(json_file)
+		apiKey = os.environ.get('NESSIE_API_KEY')
+        	print (apiKey, accnum)
+        	accountId = details[accnum][accounttype]
+        	print accountId
+        	url = 'http://api.reimaginebanking.com/accounts/{}/transfers?type=payer&key={}'.format(accountId, apiKey)
+        	response = requests.get(url, headers={'content-type': 'application/json'})
+        	lasttransfer = response.json()
+        	return lasttransfer
+
+#Helper function for Last Purchase
+def getLastpurchase(accnum, accounttype):
+    	with open('details.json') as json_file:
+        	details = json.load(json_file)
+		apiKey = os.environ.get('NESSIE_API_KEY')
+        	print (apiKey, accnum)
+        	accountId = details[accnum][accounttype]
+        	print accountId
+        	url = 'http://api.reimaginebanking.com/accounts/{}/purchases?key={}'.format(accountId, apiKey)
+        	response = requests.get(url, headers={'content-type': 'application/json'})
+        	lastpurchase = response.json()
+        	return lastpurchase
+
 		
 if __name__ == '__main__':
 	port = int(os.getenv('PORT', 5000))
