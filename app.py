@@ -49,15 +49,15 @@ def getAccount(accountnumberslot, accounttypeslot):
         	return delegate(None)
 	accnum = accountnumberslot
 	accounttype = accounttypeslot
-    	print (accnum, accounttype)
-    	lastpurchase = getLastpurchase(accnum, accounttype)
+	print (accnum, accounttype)
+	lastpurchase = getLastpurchase(accnum, accounttype)
 	Amount = lastpurchase[0][u'amount']
-        Purchaseamount = str(Amount)
+	Purchaseamount = str(Amount)
 	date = lastpurchase[0][u'purchase_date']
 	Purchasedate = str(date)
 	speech = 'The last purchase you made was for ' + Purchaseamount \
-		+ ' dollars on ' + Purchasedate + .'
-    	return statement(speech).simple_card('Last purchase', speech)
+		+ ' dollars on ' + Purchasedate + '
+	return statement(speech).simple_card('Last purchase', speech)
 
 #Last transfer Intent
 @ask.intent("Lasttransfer")
@@ -69,7 +69,7 @@ def getAccount(accountnumberslot, accounttypeslot):
         	return delegate(None)
 	accnum = accountnumberslot
 	accounttype = accounttypeslot
-    	print (accnum, accounttype)
+	print (accnum, accounttype)
 	lasttransfer = getLasttransfer(accnum, accounttype)
 	Amount = lasttransfer[0][u'amount']
         Transferamount = str(Amount)
@@ -144,7 +144,6 @@ def getLastpurchase(accnum, accounttype):
         	response = requests.get(url, headers={'content-type': 'application/json'})
         	lastpurchase = response.json()
         	return lastpurchase
-
 		
 if __name__ == '__main__':
 	port = int(os.getenv('PORT', 5000))
