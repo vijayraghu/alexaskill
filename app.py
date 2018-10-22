@@ -94,37 +94,32 @@ def session_ended():
 	
 #Helper function for Balance
 def getBalance(accnum, accounttype):
-    with open('details.json') as json_file:
-        details = json.load(json_file)
-	#apiKey = details["key"]
-        apiKey = os.environ.get('NESSIE_API_KEY')
-        print (apiKey, accnum)
-        if Accounttype == 'Savings':
-            accountId = details[accnum]['Savings']
-        elif Accounttype == 'Checking':
-            accountId = details[accnum]['Checking']
-        else:
-            accountId = details[accnum]['Credit Card']
-        url = \
-            'http://api.reimaginebanking.com/accounts/{}?key={}'.format(accountId,
-                apiKey)
-        print (url)
-        response = requests.get(url,
-                                headers={'content-type': 'application/json'
-                                })
-        result = response.json()
-        accountbalance = result[u'balance']
-        Balance = str(accountbalance)
-        return Balance
+	with open('details.json') as json_file:
+		details = json.load(json_file)
+		apiKey = os.environ.get('NESSIE_API_KEY')
+		print (apiKey, accnum)
+		if Accounttype == 'Savings':
+			accountId = details[accnum]['Savings']
+		elif Accounttype == 'Checking':
+			accountId = details[accnum]['Checking']
+		else:
+			accountId = details[accnum]['Credit Card']
+		url = 'http://api.reimaginebanking.com/accounts/{}?key={}'.format(accountId, apiKey)
+		print (url)
+		response = requests.get(url, headers={'content-type': 'application/json'})
+		result = response.json()
+		accountbalance = result[u'balance']
+		Balance = str(accountbalance)
+		return Balance
 
 #Helper function for Last transfer
 def getLasttransfer(accnum, accounttype):
 	with open('details.json') as json_file:
-        	details = json.load(json_file)
+		details = json.load(json_file)
 		apiKey = os.environ.get('NESSIE_API_KEY')
-        	print (apiKey, accnum)
-        	accountId = details[accnum][accounttype]
-        	print accountId
+		print (apiKey, accnum)
+		accountId = details[accnum][accounttype]
+		print accountId
         	url = 'http://api.reimaginebanking.com/accounts/{}/transfers?type=payer&key={}'.format(accountId, apiKey)
         	response = requests.get(url, headers={'content-type': 'application/json'})
         	lasttransfer = response.json()
