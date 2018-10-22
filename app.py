@@ -127,9 +127,9 @@ def getLasttransfer(accnum, accounttype):
 
 #Helper function for Last Purchase
 def getLastpurchase(accnum, accounttype):
-	apiKey = os.environ.get('NESSIE_API_KEY')
-    	with open('details.json') as json_file:
+	with open('details.json') as json_file:
 		details = json.load(json_file)
+		apiKey = os.environ.get('NESSIE_API_KEY')
 		print (apiKey, accnum)
 		accountId = details[accnum][accounttype]
 		print (accountId)
