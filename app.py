@@ -42,11 +42,10 @@ def getAccount(accountnumberslot, accounttypeslot):
 #Last purchase Intent
 @ask.intent("Lastpurchase")
 def getAccount(accountnumberslot, accounttypeslot):
-# delegate dialog to Alexa until all parameters are set
-    	dialog_state = get_dialog_state()
-    	print (dialog_state)
-    	if dialog_state != "COMPLETED":
-        	return delegate(None)
+	dialog_state = get_dialog_state()
+	print (dialog_state)
+	if dialog_state != "COMPLETED":
+		return delegate(None)
 	accnum = accountnumberslot
 	accounttype = accounttypeslot
 	print (accnum, accounttype)
@@ -62,22 +61,21 @@ def getAccount(accountnumberslot, accounttypeslot):
 #Last transfer Intent
 @ask.intent("Lasttransfer")
 def getAccount(accountnumberslot, accounttypeslot):
-# delegate dialog to Alexa until all parameters are set
-    	dialog_state = get_dialog_state()
-    	print (dialog_state)
-    	if dialog_state != "COMPLETED":
-        	return delegate(None)
+	dialog_state = get_dialog_state()
+	print (dialog_state)
+	if dialog_state != "COMPLETED":
+		return delegate(None)
 	accnum = accountnumberslot
 	accounttype = accounttypeslot
 	print (accnum, accounttype)
 	lasttransfer = getLasttransfer(accnum, accounttype)
 	Amount = lasttransfer[0][u'amount']
-        Transferamount = str(Amount)
+	Transferamount = str(Amount)
 	date = lasttransfer[0][u'transaction_date']
 	Transferdate = str(date)
 	speech = 'The last transfer you made was for ' + Transferamount \
 		+ ' dollars on ' + Transferdate + .'
-    	return statement(speech).simple_card('Last transfer', speech)
+	return statement(speech).simple_card('Last transfer', speech)
 
 #Stop Intent
 @ask.intent('AMAZON.StopIntent')
