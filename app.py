@@ -96,7 +96,7 @@ def callbackrequest(Scheduledate, Scheduletime):
 	print(Callbackdate, Callbacktime)
 	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
 	client.calls.create(from_='+14696467609', to='+919840610434', url=url_for('.outbound', _external=True))
-	speech = 'Your callback has been submitted. You would be recieving a call on your registered mobile shortly'
+	speech = 'Your callback request has been successfully submitted. You would be recieving a call on your registered mobile shortly'
 	return statement(speech).simple_card('Callback request', speech)
 
 #Outbound call to endpoint for callback service
