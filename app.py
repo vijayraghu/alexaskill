@@ -105,7 +105,7 @@ def outbound():
 	response = VoiceResponse()
 	response.say('This call is in regards to your callback request. Please hold while we transfer your call to an agent', voice='alice')
 	response.dial('+917338856833')
-	resp.redirect('/process_close')
+	response.redirect('/process_close')
 	return str(response)
 
 @app.route('/process_close', methods=['GET', 'POST'])
