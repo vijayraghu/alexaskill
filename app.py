@@ -11,8 +11,9 @@ from flask import jsonify
 from flask import url_for
 from flask import request
 from flask import make_response
-#from twilio.rest import TwilioRestClient
 from flask_ask import Ask, request, session, question, statement, audio, delegate, context
+from twilio.rest import Client
+from twilio.twiml.voice_response import VoiceResponse, Gather, Say, Dial
 #from __future__ import print_function
 
 # Flask app should start in global layout
@@ -35,6 +36,12 @@ def getAccount(accountnumberslot, accounttypeslot):
     	accounttype = accounttypeslot
     	print (accnum, accounttype)
     	Balance = getBalance(accnum, accounttype)
+	#Send SMS with acknowledgement number
+	#client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+	#client.messages.create(from_='+14696467609', 
+				#to='+917338856833', 
+				#body='Your ' + accounttype + ' account balance is ' + Balance + ' dollars'
+				#)
     	speech = 'Your ' + accounttype + ' account balance is ' + Balance \
         	+ ' dollars'
     	return statement(speech).simple_card('Account_balance', speech)
@@ -77,6 +84,40 @@ def getAccount(accountnumberslot, accounttypeslot):
 		+ ' dollars'
 	return statement(speech).simple_card('Last transfer', speech)
 
+#Callback Service
+@ask.intent("Callbackrequest")
+def callbackrequest(Scheduledate, Scheduletime):
+	dialog_state = get_dialog_state()
+	print(dialog_state)
+	if dialog_state != "COMPLETED":
+		return delegate(None)
+	Callbackdate = Scheduledate
+	Callbacktime = Scheduletime
+	print(Callbackdate, Callbacktime)
+	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+	client.calls.create(from_='+14696467609', to='+919840610434', url=url_for('.outbound', _external=True))
+	speech = 'Your callback has been submitted. You would be recieving a call on your registered mobile shortly'
+	return statement(speech).simple_card('Callback request', speech)
+
+#Outbound call to endpoint for callback service
+@app.route('/outbound', methods=['POST'])
+def outbound():
+	response = VoiceResponse()
+	response.say('This call is in regards to your callback request. Please hold while we transfer your call to an agent', voice='alice')
+	response.dial('+917338856833')
+	resp.redirect('/process_close')
+	return str(response)
+
+@app.route('/process_close', methods=['GET', 'POST'])
+def process_close():
+	print 'in process_close'		
+
+#Help Intent
+@ask.intent('AMAZON.HelpIntent')
+def help():
+	speech = 'Hello. You can ask me for account balance or details about your last purchase or last transfer or you can schedule a call back request.'
+	return question(speech).simple_card('Help', speech)	
+	
 #Stop Intent
 @ask.intent('AMAZON.StopIntent')
 def stop():
