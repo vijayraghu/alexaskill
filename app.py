@@ -110,7 +110,7 @@ def outbound():
 
 @app.route('/process_close', methods=['GET', 'POST'])
 def process_close():
-	print 'in process_close'		
+	print ('in process_close')	
 
 #Help Intent
 @ask.intent('AMAZON.HelpIntent')
