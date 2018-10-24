@@ -43,7 +43,7 @@ def getAccount(accountnumberslot, accounttypeslot):
 				#body='Your ' + accounttype + ' account balance is ' + Balance + ' dollars'
 				#)
     	speech = 'Your ' + accounttype + ' account balance is ' + Balance \
-        	+ ' dollars'
+        	+ ' dollars. We have sent you an SMS to your registered mobile number with the details'
     	return statement(speech).simple_card('Account_balance', speech)
 
 #Last purchase Intent
