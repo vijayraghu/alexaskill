@@ -36,6 +36,7 @@ def getAccount(accountnumberslot, accounttypeslot):
     	accounttype = accounttypeslot
     	print (accnum, accounttype)
     	Balance = getBalance(accnum, accounttype)
+	#Send SMS
 	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
 	client.messages.create(from_='+14696467609', to='+917338856833', body='Your ' + accounttype + ' account balance is ' + Balance + ' pounds')
 	speech = 'Your ' + accounttype + ' account balance is ' + Balance + ' pounds. We have sent you an SMS to your registered mobile number with the details'
