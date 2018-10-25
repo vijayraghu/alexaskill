@@ -36,14 +36,14 @@ def getAccount(accountnumberslot, accounttypeslot):
     	accounttype = accounttypeslot
     	print (accnum, accounttype)
     	Balance = getBalance(accnum, accounttype)
-	#Send SMS with acknowledgement number
-	#client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-	#client.messages.create(from_='+14696467609', 
+	Send SMS with acknowledgement number
+	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+	client.messages.create(from_='+14696467609', 
 				#to='+917338856833', 
 				#body='Your ' + accounttype + ' account balance is ' + Balance + ' dollars'
 				#)
     	speech = 'Your ' + accounttype + ' account balance is ' + Balance \
-        	+ ' dollars. We have sent you an SMS to your registered mobile number with the details'
+        	+ ' pounds. We have sent you an SMS to your registered mobile number with the details'
     	return statement(speech).simple_card('Account_balance', speech)
 
 #Last purchase Intent
@@ -62,7 +62,7 @@ def getAccount(accountnumberslot, accounttypeslot):
 	date = lastpurchase[0][u'purchase_date']
 	Purchasedate = str(date)
 	speech = 'The last purchase you made was on ' + Purchasedate + ' for ' + Purchaseamount \
-		+ ' dollars'
+		+ ' pounds'
 	return statement(speech).simple_card('Last purchase', speech)
 
 #Last transfer Intent
@@ -81,7 +81,7 @@ def getAccount(accountnumberslot, accounttypeslot):
 	date = lasttransfer[0][u'transaction_date']
 	Transferdate = str(date)
 	speech = 'The last transfer you made was on ' + Transferdate + ' for ' + Transferamount \
-		+ ' dollars'
+		+ ' pounds'
 	return statement(speech).simple_card('Last transfer', speech)
 
 #Callback Service
