@@ -27,16 +27,14 @@ def get_dialog_state():
 #Account Balance Intent
 @ask.intent("AccountBalIntent")
 def getAccount(accountnumberslot, accounttypeslot):
-# delegate dialog to Alexa until all parameters are set
-    	dialog_state = get_dialog_state()
-    	print (dialog_state)
-    	if dialog_state != "COMPLETED":
-        	return delegate(None)
-    	accnum = accountnumberslot
-    	accounttype = accounttypeslot
-    	print (accnum, accounttype)
-    	Balance = getBalance(accnum, accounttype)
-	#Send SMS
+	dialog_state = get_dialog_state()
+	print (dialog_state)
+	if dialog_state != "COMPLETED":
+		return delegate(None)
+	accnum = accountnumberslot
+	accounttype = accounttypeslot
+	print (accnum, accounttype)
+	Balance = getBalance(accnum, accounttype)
 	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
 	client.messages.create(from_='+14696467609', to='+917338856833', body='Your ' + accounttype + ' account balance is ' + Balance + ' pounds')
 	speech = 'Your ' + accounttype + ' account balance is ' + Balance + ' pounds. We have sent you an SMS to your registered mobile number with the details'
