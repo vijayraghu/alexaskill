@@ -39,9 +39,9 @@ def getAccount(accountnumberslot, accounttypeslot):
 	Send SMS with acknowledgement number
 	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
 	client.messages.create(from_='+14696467609', 
-				#to='+917338856833', 
-				#body='Your ' + accounttype + ' account balance is ' + Balance + ' dollars'
-				#)
+				to='+917338856833', 
+				body='Your ' + accounttype + ' account balance is ' + Balance + ' dollars'
+				)
     	speech = 'Your ' + accounttype + ' account balance is ' + Balance \
         	+ ' pounds. We have sent you an SMS to your registered mobile number with the details'
     	return statement(speech).simple_card('Account_balance', speech)
