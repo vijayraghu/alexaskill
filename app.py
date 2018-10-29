@@ -56,7 +56,7 @@ def pre_order(preorder_product, delivery_location, phone_number, collection_mode
 			       #body='Your request for preorder of ' + preorder_product + ' has been successfully accepted. The reference number is 876546756. You will receive an email with further details shortly '
 			      #)
 	#speak out response
-	return statement('<speak> Your request for preorder of ' + preorder_product + ' has been successfully accepted. The reference number is <say-as interpret-as="digits">876546756</say-as> We have sent you an SMS with the details to your mobile number.</speak>')
+	return statement('<speak> Your request for preorder of ' + preorder_product + ' has been successfully accepted. The reference number is <say-as interpret-as="digits">876546756</say-as> <break time="1s"/> We have sent you an SMS with the details to your mobile number.</speak>')
  
 #Stop Intent
 @ask.intent('AMAZON.StopIntent')
