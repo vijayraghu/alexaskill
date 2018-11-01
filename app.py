@@ -13,6 +13,7 @@ from flask import request
 from flask import make_response
 from flask_ask import Ask, request, session, question, statement, audio, delegate, context
 from twilio.rest import Client
+from twilio.twiml.voice_response import VoiceResponse, Gather, Say, Dial
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -57,7 +58,35 @@ def pre_order(preorder_product, delivery_location, phone_number, collection_mode
 			      #)
 	#speak out response
 	return statement('<speak> Your request for preorder of ' + preorder_product + ' has been successfully accepted. The reference number is <say-as interpret-as="digits">876546756</say-as> <break time="1s"/> We have sent you an SMS with the details to your mobile number.</speak>')
- 
+
+#Callback Service
+@ask.intent("Callbackrequest")
+def callbackrequest(Scheduledate, Scheduletime):
+	dialog_state = get_dialog_state()
+	print(dialog_state)
+	if dialog_state != "COMPLETED":
+		return delegate(None)
+	Callbackdate = Scheduledate
+	Callbacktime = Scheduletime
+	print(Callbacktime, Callbackdate)
+	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+	client.calls.create(from_='+14696467609', to='+15108949478', url=url_for('.outbound', _external=True))
+	speech = 'Your callback request has been successfully submitted. You would be recieving a call on your mobile shortly'
+	return statement(speech).simple_card('Callback request', speech)
+
+#Outbound call to endpoint for callback service
+@app.route('/outbound', methods=['POST'])
+def outbound():
+	response = VoiceResponse()
+	response.say('This call is in regards to your callback request. Please hold while we transfer your call to an agent', voice='alice')
+	response.dial('+13026606019')
+	response.redirect('/process_close')
+	return str(response)
+
+@app.route('/process_close', methods=['GET', 'POST'])
+def process_close():
+	print ('in process_close')
+
 #Stop Intent
 @ask.intent('AMAZON.StopIntent')
 def stop():
