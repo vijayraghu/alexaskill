@@ -86,6 +86,12 @@ def outbound():
 @app.route('/process_close', methods=['GET', 'POST'])
 def process_close():
 	print ('in process_close')
+	
+#Help Intent
+@ask.intent('AMAZON.HelpIntent')
+def help():
+	speech = 'Hello. You can schedule an appointment at a genius bar store, place a pre-order request for an apple product or schedule a call back to speak to our customer service representative.'
+	return question(speech).simple_card('Help', speech)
 
 #Stop Intent
 @ask.intent('AMAZON.StopIntent')
