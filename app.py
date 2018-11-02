@@ -32,12 +32,12 @@ def book_appointment(device_serial_number, phone_number, appointment_date, appoi
 	if dialog_state != "COMPLETED":
 		return delegate(None)
 	print(device_serial_number, phone_number, appointment_date, appointment_time, problem_statement, zip_code)
-	# Send SMS with acknowledgement number
-	#client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-	#client.messages.create(from_='+14696467609', 
-			       #to='+15108949478',
-			       #body='Your request for appointment on the ' + appointment_date +  ' at ' + appointment_time + '. been successfully submitted. The service request number is 456756435.'
-			      #)
+	#Send SMS with acknowledgement number
+	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+	client.messages.create(from_='+14696467609', 
+			       to='+15108949478',
+			       body='Your request for appointment on the ' + appointment_date +  ' at ' + appointment_time + '. been successfully submitted. The service request number is 456756435.'
+			      )
 	#speak out response
 	return statement('<speak> Your request for an appointment on the ' + appointment_date + ' at ' + appointment_time + '. has been successfully submitted. The service request number is <say-as interpret-as="digits">456756435</say-as> <break time="1s"/> We have sent you an SMS with the details to your mobile number.</speak>')
 
@@ -50,12 +50,12 @@ def pre_order(preorder_product, delivery_location, phone_number, collection_mode
 	if dialog_state != "COMPLETED":
 		return delegate(None)
 	print(preorder_product, delivery_location, phone_number, collection_mode)
-	# Send SMS with acknowledgement number
-	#client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-	#client.messages.create(from_='+14696467609', 
-			       #to='+15108949478',
-			       #body='Your request for preorder of ' + preorder_product + ' has been successfully accepted. The reference number is 876546756.'
-			      #)
+	#Send SMS with acknowledgement number
+	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+	client.messages.create(from_='+14696467609', 
+			       to='+15108949478',
+			       body='Your request for preorder of ' + preorder_product + ' has been successfully accepted. The reference number is 876546756.'
+			      )
 	#speak out response
 	return statement('<speak> Your request for preorder of ' + preorder_product + ' has been successfully accepted. The reference number is <say-as interpret-as="digits">876546756</say-as> <break time="1s"/> We have sent you an SMS with the details to your mobile number.</speak>')
 
@@ -69,8 +69,8 @@ def callbackrequest(Scheduledate, Scheduletime):
 	Callbackdate = Scheduledate
 	Callbacktime = Scheduletime
 	print(Callbacktime, Callbackdate)
-	#client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-	#client.calls.create(from_='+14696467609', to='+15108949478', url=url_for('.outbound', _external=True))
+	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+	client.calls.create(from_='+14696467609', to='+15108949478', url=url_for('.outbound', _external=True))
 	speech = 'Your callback request has been successfully submitted. You would be recieving a call on your mobile shortly'
 	return statement(speech).simple_card('Callback request', speech)
 
