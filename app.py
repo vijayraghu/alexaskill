@@ -29,7 +29,7 @@ def channeladd(channel):
     dialog_state = get_dialog_state()
     print (dialog_state)
     if dialog_state != "COMPLETED":
-        return delegate(speech=None)
+        return delegate(None)
     channelname = channel
     print (channelname)
     session.attributes['intent_name'] = "addchannel"
@@ -48,7 +48,7 @@ def channelinquire(channel):
     dialog_state = get_dialog_state()
     print (dialog_state)
     if dialog_state != "COMPLETED":
-        return delegate(speech=None)
+        return delegate(None)
     channelname = channel
     print (channelname)
     #channelprice = getchannelprice(channelname)
@@ -65,7 +65,7 @@ def channelcancel(channel):
     dialog_state = get_dialog_state()
     print (dialog_state)
     if dialog_state != "COMPLETED":
-        return delegate(speech=None)
+        return delegate(None)
     channelname = channel
     print (channelname)
     #channelprice = getchannelprice(channelname)
