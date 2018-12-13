@@ -33,7 +33,7 @@ def channeladd(channel):
     channelname = channel
     print (channelname)
     channelprice = getchannelprice(channelname)
-    speech = '<speak>' + channelname +  'can be added to your account for just ' + channelprice +  '. Do you want to go ahead and add it to your account? </speak>'
+    speech = '<speak>' + channelname +   ' can be added to your account for just ' + channelprice +  '. Do you want to go ahead and add it to your account? </speak>'
     #speech = '<speak>' + channelname +  'can be added to your account for just <say-as interpret-as="digits">' + channelprice + '</say-as> is successfully submitted. Thank you </speak>'
     print (speech)
     return question(speech)
