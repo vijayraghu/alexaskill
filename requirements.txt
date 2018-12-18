@@ -1,5 +1,5 @@
 Flask==1.0.2
-requests==2.19.1
+requests>=2.20.0
 flask-ask==0.9.8
 twilio==6.15.2
 cryptography<2.2
