@@ -76,7 +76,7 @@ def sendsurveyquestion(phonenumber, smsresponse, currentstatus):
 		# Update Survey master status to Question 1
 		cur = conn.cursor()
 		query = "UPDATE customer_survey_master set current_survey_status = %s where ani = %s"
-		args = ('Question 1', phonenumber)
+		args = ('Question1', phonenumber)
 		cur.execute(query,args)
 		conn.commit()
 		curr.close()
@@ -96,13 +96,30 @@ def sendsurveyquestion(phonenumber, smsresponse, currentstatus):
 		curr.execute("SELECT count(question_key) from  survey_question_master")
 		for r in curr:
 			questioncount = int(r[0])-1
-		i=0
-		for i in questioncount
-		# Populate survey response table with response for Question
-		
-		
-	
-			    
+		i=1
+		for i in range(i, questioncount):
+			# Populate survey response table with response for Request for Survey
+			query  = "INSERT INTO customer_survey_history(ani, question_key, customer_response) values (%s,%s,%s)"
+			args = (phonenumber, currentstatus, smsresponse)
+			cur.execute(query,args)
+			# Update Survey master status to the question
+			i=i+1
+			questionnumber = currentstatus[0:8]+str(i)
+			query = "UPDATE customer_survey_master set current_survey_status = %s where ani = %s"
+			args = (questionnumber, phonenumber)
+			cur.execute(query,args)
+			conn.commit()
+			curr.close()
+			# Get the next question text and call send SMS
+			cur = conn.cursor()
+			curr.execute("SELECT * from survey_question_master where question_key='"+currentstatus"'")
+			for r in curr:
+				questiontext = r[1]
+			curr.close()
+			conn.close()
+			sendSMS(phonenumber, questiontext, cli)
+			return "
+			 
 # Send SMS function
 def sendSMS(dnis, smsbody, cli):
 	client = Client(account_sid, auth_token)
@@ -110,42 +127,6 @@ def sendSMS(dnis, smsbody, cli):
 			       from_=cli,
 			       to=dnis
 			      )
-	return ""
-
-	
-	
-	
-	
-
-	question1 = "What do you think about the service you experienced. Please respond by choosing one of the options - Very Good, Good, Satisfactory, Dissatisfied'
-	question2 = "Will you recommend our service. Please respond by choosing one of the options - Definitely, Yes, No'
-	
-	
-	
-	
-	
-	apiai_language = 'en'
-	
-	#Sending and getting response from Dialogflow
-	headers = {'authorization': 'Bearer ' + apiai_client_access_key, 
-			   'content-type': 'application/json'
-			  }
-	payload = {'query': input_text , 
-			   'lang': apiai_language, 
-			   'sessionId': user_id
-			  }
-	response = requests.request("POST", url=apiai_url, data=json.dumps(payload), headers=headers, params=apiai_querystring)
-	print (response.text)
-	output = json.loads(response.text)
-	output_text = output['result']['fulfillment']['speech']
-	#output_text = output_text.decode('utf-8')
-				
-	# Send whatsapp with dialogflow response
-	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-	client.messages.create(body=output_text, 
-			       from_='whatsapp:+14155238886', 
-			       to=caller_phone_number
-			      )					  
 	return str(response)
 	
 if __name__ == '__main__':
