@@ -34,8 +34,8 @@ def requestsurvey():
 	# Get the Question text and send SMS
 	conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
 	cur = conn.cursor()
-	curr.execute("SELECT * from survey_question_master where question_key='"+currentstatus"'")
-	for r in curr:
+	cur.execute("SELECT * from survey_question_master where question_key='"+currentsurveystatus"'")
+	for r in cur:
 		questiontext = r[1]
 	# Send Request for Survey message
 	sendSMS(phonenumber, questiontext, cli)
@@ -53,10 +53,9 @@ def startsurvey():
 	phonenumber = request.values.get('From')
 	print (caller_phone_number)
 	smsresponse = request.values.get('Body')
-	currentsurveystatus = ""
 	conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
 	cur = conn.cursor()
-	cur.execute("SELECT * FROM customer_survey_master where ani='"+callerphonenumber"'")
+	cur.execute("SELECT * FROM customer_survey_master where ani='"+phonenumber"'")
 	for r in curr:
 		currentsurveystatus = r[1]
 	cur.close()
@@ -67,18 +66,35 @@ def startsurvey():
 	
 # Send questions based on survey status	
 def sendsurveyquestion(phonenumber, smsresponse, currentsurveystatus):
-	if currentsurveystatus == "Question1" and smsresponse == "Yes":
+		questionkey= str(currentsurveystatus)+str(smsresponse)
 		conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
+		# Populate survey response table with response for Request for Survey
+		query  = "INSERT INTO customer_survey_history(ani, question_key, customer_response) values (%s,%s,%s)"
+		args = (phonenumber, questionkey, smsresponse)
+		cur.execute(query,args)
+		query = "UPDATE customer_survey_master set current_survey_status = %s where ani = %s"
+		args = (questionkey, phonenumber)
+		curr.execute("SELECT * from survey_question_master where question_key='"+questionkey"'")
+		for r in curr:
+			questiontext = r[1]
+		if questiontext != "" or questiontext != "Survey End":
+			
+			
+			
+			
+			
+				
+		
 		# Get the number of questions
 		cur = conn.cursor()
-		curr.execute("SELECT count(question_key) from  survey_question_master")
-		for r in curr:
-			questioncount = int(r[0])-1
+		cur.execute("SELECT count(question_key) from  survey_question_master")
+		for r in cur:
+			questioncount = int(r[0])
 		i=1
 		for i in range(i, questioncount):
 			# Populate survey response table with response for Request for Survey
 			query  = "INSERT INTO customer_survey_history(ani, question_key, customer_response) values (%s,%s,%s)"
-			args = (phonenumber, currentstatus, smsresponse)
+			args = (phonenumber, currentsurveystatus, smsresponse)
 			cur.execute(query,args)
 			# Update Survey master status to the question
 			i=i+1
@@ -87,13 +103,13 @@ def sendsurveyquestion(phonenumber, smsresponse, currentsurveystatus):
 			args = (questionnumber, phonenumber)
 			cur.execute(query,args)
 			conn.commit()
-			curr.close()
+			cur.close()
 			# Get the next question text and call send SMS
 			cur = conn.cursor()
 			curr.execute("SELECT * from survey_question_master where question_key='"+currentstatus"'")
 			for r in curr:
 				questiontext = r[1]
-			curr.close()
+			cur.close()
 			conn.close()
 			sendSMS(phonenumber, questiontext, cli)
 			return ""
@@ -104,7 +120,7 @@ def sendsurveyquestion(phonenumber, smsresponse, currentsurveystatus):
 			args = (phonenumber, currentstatus, smsresponse)
 			cur.execute(query,args)
 			conn.commit()
-			curr.close()
+			cur.close()
 			conn.close()
 			return ""
 		
