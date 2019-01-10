@@ -69,16 +69,17 @@ def postresponse(ani, dnis):
 		ani = r[0]
 		dnis = r[1]
 		question = r[2]
-		surveyid = r[3]
-		userid = r[4]
+		response = r[3]
+		surveyid = r[4]
+		userid = r[5]
 	payload = {'ani': ani, 'dnis': dnis, 'question':question, 'surveyid':surveyid, 'userid':userid}
 	requests.request("POST", url=surveyappurl, data=json.dumps(payload))
 	return ""
 
 # Send SMS function
-def sendSMS(dnis, smsbody, cli):
+def sendSMS(dnis, questiontext, cli):
 	client = Client(account_sid, auth_token)
-	client.messages.create(body=smsbody, 
+	client.messages.create(body=questiontext, 
 			       from_=cli,
 			       to=dnis
 			      )
