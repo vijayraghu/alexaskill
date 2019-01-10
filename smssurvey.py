@@ -29,15 +29,18 @@ app = Flask(__name__)
 #Receive POST request from Survey application
 @app.route('/requestsurvey', methods=['GET','POST'])
 def requestsurvey():
-	dnis = 
-	currentsurveystatus = "RequestforSurvey"
-	text = "You have been selected as a survey participant. Kindly respond by stating Yes if you want to take the survey or No if you want to opt out'
-	# Send Request for Survey message
-	sendSMS(dnis, text, cli)
+	phonenumber = 
+	currentsurveystatus = "Question1"
+	# Get the Question text and send SMS
 	conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
 	cur = conn.cursor()
+	curr.execute("SELECT * from survey_question_master where question_key='"+currentstatus"'")
+	for r in curr:
+		questiontext = r[1]
+	# Send Request for Survey message
+	sendSMS(phonenumber, questiontext, cli)
 	query = "INSERT INTO customer_survey_master(ani, current_survey_status) values (%s,%s)"
-	args = (dnis, currentsurveystatus)
+	args = (phonenumber, currentsurveystatus)
 	cur.execute(query,args)
 	conn.commit()
 	cur.close()
@@ -47,49 +50,24 @@ def requestsurvey():
 # Get ANI, SMS response and current survey status
 @app.route('/startsurvey', methods=['GET','POST'])
 def startsurvey():
-	callerphonenumber = request.values.get('From')
+	phonenumber = request.values.get('From')
 	print (caller_phone_number)
-	input_text = request.values.get('Body')
-	current_status = ""
+	smsresponse = request.values.get('Body')
+	currentsurveystatus = ""
 	conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
 	cur = conn.cursor()
 	cur.execute("SELECT * FROM customer_survey_master where ani='"+callerphonenumber"'")
 	for r in curr:
-		current_status = r[1]
+		currentsurveystatus = r[1]
 	cur.close()
 	cur = conn.cursor()
 	conn.close()
-	sendsurveyquestion(callerphonenumber, input_text, current_status)
+	sendsurveyquestion(phonenumber, smsresponse, currentsurveystatus)
 	return ""
 	
 # Send questions based on survey status	
-def sendsurveyquestion(phonenumber, smsresponse, currentstatus):
-	if currentstatus == "RequestforSurvey":
-		conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
-		# Populate survey response table with response for Request for Survey
-		cur = conn.cursor()
-		query  = "INSERT INTO customer_survey_history(ani, question_key, customer_response) values (%s,%s,%s)"
-		args = (phonenumber, currentstatus, smsresponse)
-		cur.execute(query,args)
-		conn.commit()
-		cur.close()
-		# Update Survey master status to Question 1
-		cur = conn.cursor()
-		query = "UPDATE customer_survey_master set current_survey_status = %s where ani = %s"
-		args = ('Question1', phonenumber)
-		cur.execute(query,args)
-		conn.commit()
-		curr.close()
-		# Get the next question text and call send SMS
-		cur = conn.cursor()
-		curr.execute("SELECT * from survey_question_master where question_key='"+currentstatus"'")
-		for r in curr:
-			questiontext = r[1]
-		curr.close()
-		conn.close()
-		sendSMS(phonenumber, questiontext, cli)
-		return ""
-	else:
+def sendsurveyquestion(phonenumber, smsresponse, currentsurveystatus):
+	if currentsurveystatus == "Question1" and smsresponse == "Yes":
 		conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
 		# Get the number of questions
 		cur = conn.cursor()
@@ -118,8 +96,18 @@ def sendsurveyquestion(phonenumber, smsresponse, currentstatus):
 			curr.close()
 			conn.close()
 			sendSMS(phonenumber, questiontext, cli)
-			return "
-			 
+			return ""
+		else:
+			conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
+			# Populate survey response table with response for Request for Survey stating Response is No
+			query  = "INSERT INTO customer_survey_history(ani, question_key, customer_response) values (%s,%s,%s)"
+			args = (phonenumber, currentstatus, smsresponse)
+			cur.execute(query,args)
+			conn.commit()
+			curr.close()
+			conn.close()
+			return ""
+		
 # Send SMS function
 def sendSMS(dnis, smsbody, cli):
 	client = Client(account_sid, auth_token)
