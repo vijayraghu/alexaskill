@@ -14,14 +14,11 @@ from twilio.rest import Client
 account_sid = os.environ["TWILIO_ACCOUNT_SID"]
 auth_token = os.environ["TWILIO_AUTH_TOKEN"]
 cli = os.environ["cli"]
+surveyappurl = "<<url of survey application>>"
 databasename = os.environ["databasename"]
 databasehost = os.environ["databasehost"]
 databaseusername = os.environ["databaseusername"]
 databasepassword = os.environ["databasepassword"]
-
-#Set key for session variables
-SECRET_KEY = os.environ["SECRET_KEY"]
-app.secret_key=SECRET_KEY
 
 #Initialize Flask application
 app = Flask(__name__)
@@ -29,101 +26,55 @@ app = Flask(__name__)
 #Receive POST request from Survey application
 @app.route('/requestsurvey', methods=['GET','POST'])
 def requestsurvey():
-	phonenumber = 
-	currentsurveystatus = "Question1"
-	# Get the Question text and send SMS
+	phonenumber = request.values.get("phonenumber", None)
+	questiontext = request.values.get("questiontext", None)
+	surveyid = request.values.get("surveyid", None)
+	userid = request.values.get("userid", None)
+	# Update table and send SMS
 	conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
 	cur = conn.cursor()
-	cur.execute("SELECT * from survey_question_master where question_key='"+currentsurveystatus"'")
-	for r in cur:
-		questiontext = r[1]
-	# Send Request for Survey message
-	sendSMS(phonenumber, questiontext, cli)
-	query = "INSERT INTO customer_survey_master(ani, current_survey_status) values (%s,%s)"
-	args = (phonenumber, currentsurveystatus)
+	query = "INSERT INTO customer_survey_master(ani, cli, question, surveyid, userid) values (%s,%s,%s,%s)"
+	args = (phonenumber, cli, questiontext, surveyid, userid)
 	cur.execute(query,args)
 	conn.commit()
 	cur.close()
 	conn.close()
-	return str(response)
+	# Send Request for Survey message
+	sendSMS(phonenumber, questiontext, cli)
+	return ""
 
-# Get ANI, SMS response and current survey status
-@app.route('/startsurvey', methods=['GET','POST'])
-def startsurvey():
+# Get ANI, SMS response update to database
+@app.route('/receiveresponse', methods=['GET','POST'])
+def receiveresponse():
 	phonenumber = request.values.get('From')
-	print (caller_phone_number)
+	senttonumber = request.values.get('To')
 	smsresponse = request.values.get('Body')
+	print (phonenumber, senttonumber, smsresponse)
 	conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
 	cur = conn.cursor()
-	cur.execute("SELECT * FROM customer_survey_master where ani='"+phonenumber"'")
-	for r in curr:
-		currentsurveystatus = r[1]
+	query = "UPDATE customer_survey_master set response = %s where ani = %s and cli = %s"
+	args = (smsresponse, phonenumber, senttonumber)
+	cur.execute(query,args)
+	conn.commit()
 	cur.close()
-	cur = conn.cursor()
-	conn.close()
-	sendsurveyquestion(phonenumber, smsresponse, currentsurveystatus)
+	postresponse(phonenumber, senttonumber)
 	return ""
-	
-# Send questions based on survey status	
-def sendsurveyquestion(phonenumber, smsresponse, currentsurveystatus):
-		questionkey= str(currentsurveystatus)+str(smsresponse)
-		conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
-		# Populate survey response table with response for Request for Survey
-		query  = "INSERT INTO customer_survey_history(ani, question_key, customer_response) values (%s,%s,%s)"
-		args = (phonenumber, questionkey, smsresponse)
-		cur.execute(query,args)
-		query = "UPDATE customer_survey_master set current_survey_status = %s where ani = %s"
-		args = (questionkey, phonenumber)
-		curr.execute("SELECT * from survey_question_master where question_key='"+questionkey"'")
-		for r in curr:
-			questiontext = r[1]
-		if questiontext != "" or questiontext != "Survey End":
-			
-			
-			
-			
-			
-				
-		
-		# Get the number of questions
-		cur = conn.cursor()
-		cur.execute("SELECT count(question_key) from  survey_question_master")
-		for r in cur:
-			questioncount = int(r[0])
-		i=1
-		for i in range(i, questioncount):
-			# Populate survey response table with response for Request for Survey
-			query  = "INSERT INTO customer_survey_history(ani, question_key, customer_response) values (%s,%s,%s)"
-			args = (phonenumber, currentsurveystatus, smsresponse)
-			cur.execute(query,args)
-			# Update Survey master status to the question
-			i=i+1
-			questionnumber = currentstatus[0:8]+str(i)
-			query = "UPDATE customer_survey_master set current_survey_status = %s where ani = %s"
-			args = (questionnumber, phonenumber)
-			cur.execute(query,args)
-			conn.commit()
-			cur.close()
-			# Get the next question text and call send SMS
-			cur = conn.cursor()
-			curr.execute("SELECT * from survey_question_master where question_key='"+currentstatus"'")
-			for r in curr:
-				questiontext = r[1]
-			cur.close()
-			conn.close()
-			sendSMS(phonenumber, questiontext, cli)
-			return ""
-		else:
-			conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
-			# Populate survey response table with response for Request for Survey stating Response is No
-			query  = "INSERT INTO customer_survey_history(ani, question_key, customer_response) values (%s,%s,%s)"
-			args = (phonenumber, currentstatus, smsresponse)
-			cur.execute(query,args)
-			conn.commit()
-			cur.close()
-			conn.close()
-			return ""
-		
+
+# POST Response back to survey application
+def postresponse(ani, dnis):
+	conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
+	cur = conn.cursor()
+	curr.execute("SELECT * from survey_question_master where ani='"+ani"' and dnis='"+dnis"'")
+	for r in curr:
+		ani = r[0]
+		dnis = r[1]
+		question = r[2]
+		surveyid = r[3]
+		userid = r[4]
+	payload = {'ani': ani, 'dnis': dnis, 'question':question, 'surveyid':surveyid, 'userid':userid}
+	requests.request("POST", url=surveyappurl, data=json.dumps(payload))
+	return ""
+
 # Send SMS function
 def sendSMS(dnis, smsbody, cli):
 	client = Client(account_sid, auth_token)
