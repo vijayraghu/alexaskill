@@ -64,7 +64,9 @@ def receiveresponse():
 def postresponse(ani, dnis):
 	conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
 	cur = conn.cursor()
-	curr.execute("SELECT * from survey_question_master where ani="+ani" and dnis="+dnis"")
+	query = "SELECT * from survey_question_master where ani=%s and dnis=%s"
+	args = (ani, dnis)
+	curr.execute(query,args)
 	for r in curr:
 		ani = r[0]
 		dnis = r[1]
