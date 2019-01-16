@@ -14,7 +14,7 @@ from twilio.rest import Client
 account_sid = os.environ["TWILIO_ACCOUNT_SID"]
 auth_token = os.environ["TWILIO_AUTH_TOKEN"]
 cli = os.environ["cli"]
-surveyappurl = "<<url of survey application>>"
+surveyappurl =  os.environ["surveyappurl"]
 databasename = os.environ["databasename"]
 databasehost = os.environ["databasehost"]
 databaseusername = os.environ["databaseusername"]
@@ -30,6 +30,7 @@ def requestsurvey():
 	questiontext = request.values.get("questiontext", None)
 	surveyid = request.values.get("surveyid", None)
 	userid = request.values.get("userid", None)
+	print(phonenumber, questiontext, surveyid, userid)
 	# Update table and send SMS
 	conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
 	cur = conn.cursor()
