@@ -58,7 +58,7 @@ def receiveresponse():
 	cur.execute(query,args)
 	conn.commit()
 	cur.close()
-	postresponse(phonenumber, senttonumber)
+	#postresponse(phonenumber, senttonumber)
 	return ""
 
 # POST Response back to survey application
