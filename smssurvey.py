@@ -86,7 +86,7 @@ def sendSMS(dnis, questiontext, cli):
 			       from_=cli,
 			       to=dnis
 			      )
-	return str(response)
+	return ""
 	
 if __name__ == '__main__':
 	port = int(os.getenv('PORT', 5000))
