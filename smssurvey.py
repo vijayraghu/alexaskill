@@ -35,7 +35,7 @@ def requestsurvey():
 	conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
 	cur = conn.cursor()
 	query = "INSERT INTO customer_survey_master(ani, cli, question, surveyid, userid) values (%s,%s,%s,%s)"
-	args = (phonenumber, cli, questiontext, surveyid, userid)
+	args = (str(phonenumber), str(cli), str(questiontext), str(surveyid), str(userid))
 	cur.execute(query,args)
 	conn.commit()
 	cur.close()
