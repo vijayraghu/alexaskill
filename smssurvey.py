@@ -34,7 +34,7 @@ def requestsurvey():
 	# Update table and send SMS
 	conn = pymysql.connect(host=databasehost, user=databaseusername, passwd=databasepassword, port=3306, db=databasename)
 	cur = conn.cursor()
-	query = "INSERT INTO customer_survey_master(ani, cli, question, surveyid, userid) values (%s,%s,%s,%s)"
+	query = "INSERT INTO customer_survey_master(ani, cli, question, surveyid, userid) values (%s,%s,%s,%s,%s)"
 	args = (str(phonenumber), str(cli), str(questiontext), str(surveyid), str(userid))
 	cur.execute(query,args)
 	conn.commit()
