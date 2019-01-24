@@ -1,1 +1,1 @@
-web: python smssurvey.py
+web: python appwhatsapp.py
