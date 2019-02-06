@@ -1,1 +1,1 @@
-web: python appwhatsapp.py
+web: python attdemo.py
