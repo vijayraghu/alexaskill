@@ -1,0 +1,34 @@
+def start():
+	caller_phone_number = request.values.get('From')
+	print (caller_phone_number)
+	user_id = request.values.get('From')
+	media_url = request.values.get('MediaUrl0')
+	product_name, product_score = identify_image(media_url)
+	input_text = request.values.get('product_name')
+	apiai_language = 'en'
+	
+def identify_image(image_url):
+
+	#Generate Google Vision Credentials
+	service_account_info = json.loads(credentials_dgf)
+	credentials = service_account.Credentials.from_service_account_info(service_account_info)
+	
+	# Initiate the google vision api
+	client = vision.ImageAnnotatorClient(credentials=credentials)
+	
+	# Send image to Vision API
+	image = vision.types.Image()
+	image.source.image_uri = image_url
+	
+	# Receive response and assign
+	objects = client.object_localization(image=image).localized_object_annotations
+	print (''Number of objects found: {}'.format(len(objects)))
+	if objects:
+		for object in objects:
+			product = object.name
+			score = object.score
+			print ('Product is: ' +product + ' and score is: ' +score)
+	else:
+		print ('There was an error processing this request')
+	
+	return product, score
