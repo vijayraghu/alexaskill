@@ -35,8 +35,8 @@ def getAccount(accountnumberslot, accounttypeslot):
 	accounttype = accounttypeslot
 	print (accnum, accounttype)
 	Balance = getBalance(accnum, accounttype)
-	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-	client.messages.create(from_='+14696467609', to='+917338856833', body='Your ' + accounttype + ' account balance is ' + Balance + ' pounds')
+	#client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+	#client.messages.create(from_='+14696467609', to='+917338856833', body='Your ' + accounttype + ' account balance is ' + Balance + ' pounds')
 	speech = 'Your ' + accounttype + ' account balance is ' + Balance + ' pounds. We have sent you an SMS to your registered mobile number with the details'
 	return statement(speech).simple_card('Account_balance', speech)
 
@@ -56,7 +56,7 @@ def getAccount(accountnumberslot, accounttypeslot):
 	date = lastpurchase[0][u'purchase_date']
 	Purchasedate = str(date)
 	speech = 'The last purchase you made was on ' + Purchasedate + ' for ' + Purchaseamount \
-		+ ' pounds'
+		+ ' dollars'
 	return statement(speech).simple_card('Last purchase', speech)
 
 #Last transfer Intent
@@ -75,7 +75,7 @@ def getAccount(accountnumberslot, accounttypeslot):
 	date = lasttransfer[0][u'transaction_date']
 	Transferdate = str(date)
 	speech = 'The last transfer you made was on ' + Transferdate + ' for ' + Transferamount \
-		+ ' pounds'
+		+ ' dollars'
 	return statement(speech).simple_card('Last transfer', speech)
 
 #Callback Service
@@ -88,8 +88,8 @@ def callbackrequest(Scheduledate, Scheduletime):
 	Callbackdate = Scheduledate
 	Callbacktime = Scheduletime
 	print(Callbacktime, Callbackdate)
-	client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-	client.calls.create(from_='+14696467609', to='+919840610434', url=url_for('.outbound', _external=True))
+	#client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
+	#client.calls.create(from_='+14696467609', to='+919840610434', url=url_for('.outbound', _external=True))
 	speech = 'Your callback request has been successfully submitted. You would be recieving a call on your registered mobile shortly'
 	return statement(speech).simple_card('Callback request', speech)
 
