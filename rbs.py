@@ -36,8 +36,8 @@ def getAccount(accountnumberslot, accounttypeslot):
 	print (accnum, accounttype)
 	Balance = getBalance(accnum, accounttype)
 	#client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
-	#client.messages.create(from_='+14696467609', to='+917338856833', body='Your ' + accounttype + ' account balance is ' + Balance + ' pounds')
-	speech = 'Your ' + accounttype + ' account balance is ' + Balance + ' pounds. We have sent you an SMS to your registered mobile number with the details'
+	#client.messages.create(from_='+14696467609', to='+917338856833', body='Your ' + accounttype + ' account balance is ' + Balance + ' dollars')
+	speech = 'Your ' + accounttype + ' account balance is ' + Balance + ' dollars.'
 	return statement(speech).simple_card('Account_balance', speech)
 
 #Last purchase Intent
@@ -90,7 +90,7 @@ def callbackrequest(Scheduledate, Scheduletime):
 	print(Callbacktime, Callbackdate)
 	#client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
 	#client.calls.create(from_='+14696467609', to='+919840610434', url=url_for('.outbound', _external=True))
-	speech = 'Your callback request has been successfully submitted. You would be recieving a call on your registered mobile shortly'
+	speech = 'Your callback request has been successfully submitted. Thank you.'
 	return statement(speech).simple_card('Callback request', speech)
 
 #Outbound call to endpoint for callback service
